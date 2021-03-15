@@ -1,5 +1,11 @@
 {
   "AppSyncApiName": "BookStats",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authbookstats8f16ed72",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

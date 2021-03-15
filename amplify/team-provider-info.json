@@ -10,6 +10,11 @@
       "StackName": "amplify-bookstats-dev-172641",
       "StackId": "arn:aws:cloudformation:eu-west-2:295076997339:stack/amplify-bookstats-dev-172641/39e7da90-85ab-11eb-bf31-02d28066b576",
       "AmplifyAppId": "d2mfderuc9oznk"
+    },
+    "categories": {
+      "auth": {
+        "bookstats8f16ed72": {}
+      }
     }
   }
 }
