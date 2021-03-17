@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Auth as AuthAmp } from '@aws-amplify/auth';
 import '../configureAmplify';
+import AuthContext from '../lib/context/auth/authContext';
 import AuthLayout from '../components/layouts/AuthLayout';
 import SignUp from '../components/auth/SignUp';
 import ConfirmSignUp from '../components/auth/ConfirmSignUp';
@@ -13,15 +14,13 @@ const initialState = {
 };
 
 const Auth = () => {
+    const { user, uiState, setUser, setUiState } = useContext(AuthContext);
     const [formState, setFormState] = useState(initialState);
-    const [uiState, setUiState] = useState(null);
-    const [user, setUser] = useState(null);
-
     const { email, password, authCode } = formState;
 
     useEffect(() => {
         checkUser();
-    }, [])
+    }, []);
 
     async function checkUser() {
         try {
@@ -47,7 +46,7 @@ const Auth = () => {
                 username: email, password, 
                 attributes: { email }
             })
-    
+
             setUiState('confirmSignUp');
         } catch (err) { console.log(err) }
     }
