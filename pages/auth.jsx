@@ -2,20 +2,19 @@ import { useState, useEffect } from 'react';
 import { Auth as AuthAmp } from '@aws-amplify/auth';
 import '../configureAmplify';
 import AuthLayout from '../components/layouts/AuthLayout';
-import { signUp, confirmSignUp, signIn } from '../lib/utils/auth.utils';
 import SignUp from '../components/auth/SignUp';
 import ConfirmSignUp from '../components/auth/ConfirmSignUp';
 import SignIn from '../components/auth/SignIn';
 
-const initialState = { 
+const initialState = {
     email: '', 
     password: '', 
     authCode: '' 
 };
 
 const Auth = () => {
-    const [uiState, setUiState] = useState(null);
     const [formState, setFormState] = useState(initialState);
+    const [uiState, setUiState] = useState(null);
     const [user, setUser] = useState(null);
 
     const { email, password, authCode } = formState;
@@ -42,11 +41,31 @@ const Auth = () => {
         });
     }
 
-    signUp(setUiState, email, password);
-
-    confirmSignUp(setUiState, email, password, authCode)
-
-    signIn(email, password, setUiState);
+    async function signUp() {
+        try {
+            await AuthAmp.signUp({
+                username: email, password, 
+                attributes: { email }
+            })
+    
+            setUiState('confirmSignUp');
+        } catch (err) { console.log(err) }
+    }
+    
+     async function confirmSignUp() {
+        try {
+            await AuthAmp.confirmSignUp(email, authCode);
+            await AuthAmp.signIn(email, password)
+            setUiState('signedIn')
+        } catch (err) { console.log(err) }
+    }
+    
+    async function signIn() {
+        try {
+            await AuthAmp.signIn(email, password);
+            setUiState('signedIn');
+        } catch (err) { console.log(err) }
+    }
 
     return (
         <AuthLayout>
@@ -75,6 +94,25 @@ const Auth = () => {
                         setUiState={setUiState}
                         signIn={signIn}
                     />
+                )
+            }
+            {
+                (uiState === 'signedIn' && user) && (
+                    <div>
+                        <p className="text-xl">
+                            Welcome, {user.attributes.email}
+                        </p>
+                        <button
+                            className="text-white w-full mt-10 bg-pink-600 p-3 rounded"
+                            onClick={() => {
+                                AuthAmp.signOut();
+                                setUiState('signIn');
+                                setUser(null);
+                            }}
+                        >
+                            Sign Out
+                        </button>
+                    </div>
                 )
             }
         </AuthLayout>

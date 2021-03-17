@@ -22,7 +22,7 @@ const MainLayout = ({title, description, url, children}) => (
                 </a>
             </Link>
         </nav>
-        <div className="container mx-auto py-4">
+        <div className="container mx-auto py-4 px-2">
             {children}
         </div>
     </div>

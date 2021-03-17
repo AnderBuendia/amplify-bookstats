@@ -1,13 +1,21 @@
+import Link from 'next/link';
+
 const AuthLayout = ({children}) => {
-    return (  
-    <div className="bg-gray-50 min-h-screen">
-        <div className="flex flex-col items-center">
-            <div className="max-w-full sm:w-540 mt-14">
-                <div className="bg-white py-14 px-16 shadow-form rounded">
-                    {children}
-                </div>
+    // TODO: Put an image instead Home
+    return (
+    <div className="w-full bg-gray-100 min-h-screen">
+        <div className="p-8 border-b border-gray-300 text-center">
+            <Link href="/">
+                <a className="text-2xl font-bold">Home</a>
+            </Link>
+        </div>
+        
+        <div className="flex items-center justify-center mt-20">
+            <div className="lg:w-2/6 bg-white p-12 shadow-form rounded-md">
+                {children}
             </div>
         </div>
+      
     </div>
     );
 }
