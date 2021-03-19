@@ -4,26 +4,56 @@ import userEvent from '@testing-library/user-event';
 import { Auth as AuthAmp } from '@aws-amplify/auth';
 import '../../configureAmplify';
 import SignIn from '../components/auth/SignIn';
+import SignUp from '../components/auth/SignUp';
 
 AuthAmp.signIn = jest.fn().mockImplementation(() => {
   return true;
 });
 
-test('Check Sign Up', () => {
-  render(
-    <SignIn onChange={jest.fn()} setUiState={jest.fn()} signIn={jest.fn()} />
-  );
+AuthAmp.signUp = jest.fn().mockImplementation(() => {
+  return true;
+});
 
-  const emailInput = screen.getByLabelText(/email/i);
-  userEvent.clear(emailInput);
-  userEvent.type(emailInput, 'ibysytho@gmail.com');
+describe('Auth Tests', () => {
+  test('Check Sign In', () => {
+    render(
+      <SignIn onChange={jest.fn()} setUiState={jest.fn()} signIn={jest.fn()} />
+    );
 
-  const passwordInput = screen.getByLabelText(/password/i);
-  userEvent.clear(passwordInput);
-  userEvent.type(passwordInput, 'Ander_123');
+    const emailInput = screen.getByLabelText(/email/i);
+    userEvent.clear(emailInput);
+    userEvent.type(emailInput, 'ibysytho@gmail.com');
 
-  const buttonSignIn = screen.getByRole('button', {
-    name: 'Sign in',
+    const passwordInput = screen.getByLabelText(/password/i);
+    userEvent.clear(passwordInput);
+    userEvent.type(passwordInput, 'Ander_1234');
+
+    const buttonSignIn = screen.getByRole('button', {
+      name: 'Sign in',
+    });
+    userEvent.click(buttonSignIn);
   });
-  userEvent.click(buttonSignIn);
+
+  test('Check Sign Up', () => {
+    render(
+      <SignUp onChange={jest.fn()} setUiState={jest.fn()} signUp={jest.fn()} />
+    );
+
+    const usernameInput = screen.getByLabelText(/username/i);
+    userEvent.clear(usernameInput);
+    userEvent.type(usernameInput, 'UserTest');
+
+    const emailInput = screen.getByLabelText(/email/i);
+    userEvent.clear(emailInput);
+    userEvent.type(emailInput, 'ibysytho@gmail.com');
+
+    const passwordInput = screen.getByLabelText(/password/i);
+    userEvent.clear(passwordInput);
+    userEvent.type(passwordInput, 'Ander_1234');
+
+    const buttonSignUp = screen.getByRole('button', {
+      name: 'Sign Up',
+    });
+    userEvent.click(buttonSignUp);
+  });
 });

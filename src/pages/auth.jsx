@@ -6,10 +6,14 @@ import AuthLayout from '../components/layouts/AuthLayout';
 import SignUp from '../components/auth/SignUp';
 import ConfirmSignUp from '../components/auth/ConfirmSignUp';
 import SignIn from '../components/auth/SignIn';
+import ForgotPasswordSubmit from '../components/auth/ForgotPasswordSubmit';
+import ForgotPassword from '../components/auth/ForgotPassword';
 import { 
     signUp, 
     confirmSignUp, 
-    signIn
+    signIn,
+    forgotPassword,
+    forgotPasswordSubmit
 } from '../lib/utils/auth.utils';
 
 const initialState = {
@@ -64,6 +68,29 @@ const Auth = () => {
                         setUiState={setUiState}
                         signIn={() => signIn(
                             email, 
+                            password, 
+                            setUiState,
+                            router
+                        )}
+                    />
+                )
+            }
+            {
+                uiState === 'forgotPassword' && (
+                    <ForgotPassword 
+                        onChange={onChange}
+                        setUiState={setUiState}
+                        forgotPassword={() => forgotPassword(email, setUiState)}
+                    />
+                )
+            }
+            {
+                uiState === 'forgotPasswordSubmit' && (
+                    <ForgotPasswordSubmit
+                        onChange={onChange}
+                        forgotPasswordSubmit={() => forgotPasswordSubmit(
+                            email, 
+                            authCode, 
                             password, 
                             setUiState,
                             router

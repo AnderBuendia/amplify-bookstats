@@ -3,20 +3,21 @@ import Input from '../generic/Input';
 const SignUp = ({onChange, setUiState, signUp}) => {
     return (
         <>
-            <p className="text-3xl font-black text-center">Sign up for an account</p>
+            <p className="text-3xl font-black text-center">Sign ups for an account</p>
             <div className="mt-10">
-                <label className="text-sm">Username</label>
-                <Input onChange={onChange} name="name" />
+                <label htmlFor="username" className="text-sm">Username</label>
+                <Input onChange={onChange} name="name" id="username" />
             </div>
             <div className="mt-4">
-                <label className="text-sm">Email</label>
-                <Input onChange={onChange} name="email" />
+                <label htmlFor="email" className="text-sm">Email</label>
+                <Input onChange={onChange} name="email" id="email" />
             </div>
             <div className="my-4">
-                <label className="text-sm">Password</label> 
+                <label htmlFor="password" className="text-sm">Password</label> 
                 <Input 
                     onChange={onChange} 
                     name="password" 
+                    id="password"
                     type="password" 
                 />
             </div>
