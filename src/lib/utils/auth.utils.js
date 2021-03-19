@@ -64,3 +64,31 @@ export function signOut(setUiState, setUser) {
   setUiState('signIn');
   setUser('null');
 }
+
+/* Forgot Password */
+export async function forgotPassword(email, setUiState) {
+  try {
+    await Auth.forgotPassword(email);
+    setUiState('forgotPasswordSubmit');
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/* Forgot Password Submit */
+export async function forgotPasswordSubmit(
+  email,
+  authCode,
+  password,
+  setUiState,
+  router
+) {
+  console.log('pass', password);
+  try {
+    await Auth.forgotPasswordSubmit(email, authCode, password);
+    setUiState('signIn');
+    await router.push(MainPaths.INDEX);
+  } catch (err) {
+    console.log(err);
+  }
+}
