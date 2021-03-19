@@ -1,6 +1,5 @@
 import Auth from '@aws-amplify/auth';
-import Router from 'next/dist/next-server/lib/router/router';
-import '../../configureAmplify';
+import '../../../configureAmplify';
 import { MainPaths } from '../../enums/paths/main-paths';
 
 /* Check user */

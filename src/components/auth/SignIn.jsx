@@ -6,14 +6,15 @@ const SignIn = ({onChange, setUiState, signIn}) => {
         <>
             <p className="text-3xl font-black text-center">Sign in to your account</p>
             <div className="mt-10">
-                <label className="text-sm">Email</label>
-                <Input onChange={onChange} name="email" />
+                <label htmlFor="email" className="text-sm">Email</label>
+                <Input onChange={onChange} id="email" name="email" />
             </div>
             <div className="mt-4 mb-2">
-                <label className="text-sm">Password</label>
+                <label htmlFor="password" className="text-sm">Password</label>
                 <Input 
                     onChange={onChange} 
                     name="password" 
+                    id="password"
                     type="password" 
                 />
             </div>

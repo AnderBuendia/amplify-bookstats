@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import '../configureAmplify';
+import '../../configureAmplify';
 import { useRouter } from 'next/router';
 import AuthContext from '../lib/context/auth/authContext';
 import AuthLayout from '../components/layouts/AuthLayout';
