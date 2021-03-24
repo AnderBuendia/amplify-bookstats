@@ -17,7 +17,14 @@ export default function Home() {
       description="List your books"
       url={MainPaths.INDEX}
     >
-      <h1>From Index</h1>
+      <div className="overlay"></div>
+      <div className="flex-col">
+        <h1 className="title">From Index</h1>
+        <table className="table">
+          <th>Test</th>
+          <td>Test2</td>
+        </table>
+      </div>
     </MainLayout>
   )
 }

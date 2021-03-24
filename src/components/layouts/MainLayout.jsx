@@ -11,7 +11,7 @@ const MainLayout = ({title, description, url, children}) => (
     
     <div className="min-h-screen bg-gray-100">
         <Header />
-        <div className="container mx-auto py-4 px-2">
+        <div className="container mx-auto flex justify-center items-center">
             {children}
         </div>
     </div>
