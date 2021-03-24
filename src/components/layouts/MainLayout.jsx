@@ -1,21 +1,29 @@
+import { useRouter } from 'next/router';
 import Head from '../generic/Head';
 import Header from '../generic/Header';
+import { MainPaths } from '../../enums/paths/main-paths';
 
-const MainLayout = ({title, description, url, children}) => (
+const MainLayout = ({title, description, url, children}) => {
+  const router = useRouter();
+
+  return (
     <>
-    <Head 
+      <Head 
         title={title}
         description={description}
         url={url}
-    />
-    
-    <div className="min-h-screen bg-gray-100">
-        <Header />
+      />
+      
+      <div className="min-h-screen bg-gray-100">
+        { router.pathname !== MainPaths.INDEX && 
+          <Header />
+        }
         <div className="container mx-auto flex justify-center items-center">
-            {children}
+          {children}
         </div>
-    </div>
+      </div>
     </>
-);
+  );
+};
  
 export default MainLayout;

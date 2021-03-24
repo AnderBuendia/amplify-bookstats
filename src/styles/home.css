@@ -1,31 +1,46 @@
-.title {
-  @apply text-2xl;
-  @apply text-black;
-  @apply z-10;
-  @apply opacity-0;
-  @apply relative;
-  transform: translateY(-600px);
-  animation: 1.2s slideIn ease-in-out forwards 1s;
-}
-
-.table {
-  @apply w-0;
-  @apply z-10;
-  @apply text-2xl;
-  @apply relative;
-  @apply text-black;
-  transform: translateX(-600px);
-  animation: 1.8s slideInX ease-in-out forwards 1s;
-}
-
 .overlay {
   @apply absolute;
   @apply w-full;
   @apply inset-0;
   @apply opacity-0;
-  @apply bg-gray-200;
+  @apply bg-red-50;
   transform: scale(0.5);
   animation: 0.5s slideIn ease-in-out forwards, 1s skewBg ease-in-out;
+}
+
+.index-title {
+  @apply z-10;
+  @apply opacity-0;
+  @apply relative;
+  @apply text-6xl;
+  @apply font-bold;
+  @apply text-black;
+  transform: translateY(-600px);
+  animation: 1.4s slideIn ease-in-out forwards 0.5s;
+}
+
+.index-button {
+  transform: translateY(-600px);
+  animation: 1.9s slideIn ease-in-out forwards 0.5s;
+}
+
+.index-table {
+  @apply w-0;
+  @apply z-10;
+  @apply relative;
+  transform: translateX(-600px);
+  animation: 2.2s slideInX ease-in-out forwards 1s;
+}
+
+th {
+  @apply px-6;
+  @apply py-3;
+  @apply text-left;
+  @apply text-xs;
+  @apply font-medium;
+  @apply text-gray-500;
+  @apply uppercase;
+  @apply tracking-wider;
 }
 
 @keyframes skewBg {
