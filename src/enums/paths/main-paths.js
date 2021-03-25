@@ -1,4 +1,5 @@
 export const MainPaths = {
-    INDEX: '/',
-    AUTH: '/auth',
+  INDEX: '/',
+  AUTH: '/auth',
+  BOOKS: '/books',
 };

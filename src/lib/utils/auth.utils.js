@@ -52,7 +52,7 @@ export async function signIn(email, password, setUiState, router) {
   try {
     await Auth.signIn(email, password);
     setUiState('signedIn');
-    await router.push(MainPaths.INDEX);
+    await router.push(MainPaths.BOOKS);
   } catch (err) {
     console.log(err);
   }
@@ -61,7 +61,7 @@ export async function signIn(email, password, setUiState, router) {
 /* Sign Out */
 export function signOut(setUiState, setUser) {
   Auth.signOut();
-  setUiState('signIn');
+  setUiState(null);
   setUser('null');
 }
 
@@ -86,7 +86,7 @@ export async function forgotPasswordSubmit(
   console.log('pass', password);
   try {
     await Auth.forgotPasswordSubmit(email, authCode, password);
-    setUiState('signIn');
+    setUiState(null);
     await router.push(MainPaths.INDEX);
   } catch (err) {
     console.log(err);

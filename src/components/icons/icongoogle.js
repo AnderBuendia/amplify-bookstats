@@ -1,4 +1,4 @@
-const GoogleIcon = props => {
+const IconGoogle = (props) => {
   return (
     <svg
       {...props}
@@ -27,6 +27,6 @@ const GoogleIcon = props => {
       ></path>
     </svg>
   );
-}
+};
 
-export default GoogleIcon;
+export default IconGoogle;

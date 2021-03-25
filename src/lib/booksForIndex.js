@@ -2,7 +2,7 @@ export const Books = [
   {
     name: 'The Brothers Karamazov',
     author: 'Dostoievsky',
-    status: 'Finished',
+    status: 'Completed',
     rating: 4,
   },
   {
