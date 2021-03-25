@@ -52,7 +52,7 @@ export async function signIn(email, password, setUiState, router) {
   try {
     await Auth.signIn(email, password);
     setUiState('signedIn');
-    await router.push(MainPaths.INDEX);
+    await router.push(MainPaths.BOOKS);
   } catch (err) {
     console.log(err);
   }
@@ -61,6 +61,34 @@ export async function signIn(email, password, setUiState, router) {
 /* Sign Out */
 export function signOut(setUiState, setUser) {
   Auth.signOut();
-  setUiState('signIn');
+  setUiState(null);
   setUser('null');
+}
+
+/* Forgot Password */
+export async function forgotPassword(email, setUiState) {
+  try {
+    await Auth.forgotPassword(email);
+    setUiState('forgotPasswordSubmit');
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/* Forgot Password Submit */
+export async function forgotPasswordSubmit(
+  email,
+  authCode,
+  password,
+  setUiState,
+  router
+) {
+  console.log('pass', password);
+  try {
+    await Auth.forgotPasswordSubmit(email, authCode, password);
+    setUiState(null);
+    await router.push(MainPaths.INDEX);
+  } catch (err) {
+    console.log(err);
+  }
 }
