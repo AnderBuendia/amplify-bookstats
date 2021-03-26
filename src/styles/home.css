@@ -37,8 +37,8 @@ th {
   @apply py-3;
   @apply text-left;
   @apply text-sm;
-  @apply font-medium;
-  @apply text-gray-500;
+  @apply font-bold;
+  @apply text-indigo-700;
   @apply uppercase;
   @apply tracking-wider;
 }

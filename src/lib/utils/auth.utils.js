@@ -1,4 +1,5 @@
 import Auth from '@aws-amplify/auth';
+import { Router } from 'next/router';
 import '../../../configureAmplify';
 import { MainPaths } from '../../enums/paths/main-paths';
 
@@ -59,10 +60,11 @@ export async function signIn(email, password, setUiState, router) {
 }
 
 /* Sign Out */
-export function signOut(setUiState, setUser) {
-  Auth.signOut();
+export async function signOut(setUiState, setUser, router) {
+  await Auth.signOut();
   setUiState(null);
-  setUser('null');
+  setUser(null);
+  await router.push(MainPaths.INDEX);
 }
 
 /* Forgot Password */

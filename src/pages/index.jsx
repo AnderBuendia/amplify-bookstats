@@ -3,8 +3,6 @@ import MainLayout from '../components/layouts/MainLayout';
 import Table from '../components/generic/Table';
 import { MainPaths } from '../enums/paths/main-paths';
 import { Books } from '../lib/booksForIndex';
-import IconStar from '../components/icons/iconstar';
-import ReactStars from 'react-rating-stars-component';
 
 export default function Home() {
   return (
@@ -35,7 +33,7 @@ export default function Home() {
             <div className="w-3 h-3 ml-2 bg-yellow-500 rounded-full"></div>
             <div className="w-3 h-3 ml-2 bg-green-500 rounded-full"></div>
           </div>
-          <div className="bg-white pt-6 pb-8 px-3">
+          <div className="bg-white pt-6 pb-8 px-8">
             <Table books={Books} />
           </div>
         </div>

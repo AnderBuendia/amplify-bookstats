@@ -35,8 +35,6 @@ const Auth = () => {
     });
   };
 
-  console.log(uiState);
-
   return (
     <AuthLayout>
       {!uiState && (
