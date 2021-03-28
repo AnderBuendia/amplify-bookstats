@@ -3,14 +3,18 @@ import { Auth } from 'aws-amplify';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
 import AuthContext from '../lib/context/auth/authContext';
+import useResolution from '../hooks/useResolution';
 import MainLayout from '../components/layouts/MainLayout';
 import Table from '../components/generic/Table';
+import Card from '../components/generic/Card';
 import { MainPaths } from '../enums/paths/main-paths';
+import { ResolutionBreakPoints } from '../enums/config/resolution-breakpoints';
 import { Books as BooksForIndex } from '../lib/booksForIndex';
 
 const Books = () => {
   const { user, setUser } = useContext(AuthContext);
   const router = useRouter();
+  const width = useResolution();
 
   useEffect(() => {
     checkAuthUser();
@@ -34,7 +38,11 @@ const Books = () => {
       description="Create a list of your favorite books"
       url={MainPaths.BOOKS}
     >
-      <Table books={BooksForIndex} />
+      {width > ResolutionBreakPoints.SM ? (
+        <Table books={BooksForIndex} />
+      ) : (
+        <Card books={BooksForIndex} />
+      )}
     </MainLayout>
   );
 };

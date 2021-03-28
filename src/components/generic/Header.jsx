@@ -4,11 +4,9 @@ import { useRouter } from 'next/router';
 import AuthContext from '../../lib/context/auth/authContext';
 import { signOut } from '../../lib/utils/auth.utils';
 import { MainPaths } from '../../enums/paths/main-paths';
-import useResolution from '../../hooks/useResolution';
 
 const Header = () => {
   const { user, uiState, setUser, setUiState } = useContext(AuthContext);
-  const [width] = useResolution();
   const router = useRouter();
 
   return (

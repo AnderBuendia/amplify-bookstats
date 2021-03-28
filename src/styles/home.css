@@ -28,6 +28,13 @@
   @apply w-0;
   @apply z-10;
   @apply relative;
+  @apply mb-4;
+  @apply relative;
+  @apply shadow-md;
+  @apply overflow-hidden;
+  @apply border-b;
+  @apply border-gray-200;
+  @apply rounded-md;
   transform: translateX(-600px);
   animation: 2.2s slideInX ease-in-out forwards 1s;
 }

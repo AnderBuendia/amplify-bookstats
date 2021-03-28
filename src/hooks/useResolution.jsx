@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react';
 
 const useResolution = () => {
-  const [size, setSize] = useState([window.innerWidth]);
-
+  const [windowDimensions, setWindowDimensions] = useState(0);
   useEffect(() => {
-    const handleResize = () => {
-      setSize([window.innerWidth]);
-    };
-    window.addEventListener('resize', handleResize);
+    function handleResize() {
+      setWindowDimensions(window.innerWidth);
+    }
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return size;
+  return windowDimensions;
 };
 
 export default useResolution;

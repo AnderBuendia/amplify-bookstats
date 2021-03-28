@@ -1,16 +1,8 @@
-import { BooksStatus } from '../../enums/books/booksStatus';
+import { getColorStatus } from '../../lib/utils/colorStatus.utils';
 import ReactStars from 'react-rating-stars-component';
 import IconStar from '../icons/iconstar';
 
 const Table = ({ books }) => {
-  const getColorStatus = (status) => {
-    if (status === BooksStatus.TO_READ) return 'bg-blue-100 text-blue-500';
-    if (status === BooksStatus.READING) return 'bg-red-100 text-red-500';
-    if (status === BooksStatus.READY_TO_START)
-      return 'bg-yellow-100 text-yellow-500';
-    if (status === BooksStatus.COMPLETED) return 'bg-green-100 text-green-500';
-  };
-
   return (
     <div className="w-full shadow overflow-x-auto border-b border-gray-200 rounded-lg">
       <table className="w-full divide-y divide-gray-200">
