@@ -1,5 +1,4 @@
 import Auth from '@aws-amplify/auth';
-import { Router } from 'next/router';
 import '../../../configureAmplify';
 import { MainPaths } from '../../enums/paths/main-paths';
 
@@ -12,6 +11,16 @@ export async function checkUser(setUser, setUiState) {
   } catch (err) {
     setUser(null);
     setUiState('signIn');
+  }
+}
+
+export async function checkAuthUser(setUser, router) {
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+    setUser(user);
+  } catch (error) {
+    setUser(null);
+    router.push(MainPaths.AUTH);
   }
 }
 
