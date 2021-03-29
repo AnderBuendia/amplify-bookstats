@@ -1,5 +1,5 @@
 import { AuthState } from '../lib/context/auth/authContext';
-import '../styles/globals.css'
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   return (

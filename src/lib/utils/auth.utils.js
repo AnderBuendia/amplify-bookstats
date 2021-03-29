@@ -14,6 +14,16 @@ export async function checkUser(setUser, setUiState) {
   }
 }
 
+export async function checkAuthUser(setUser, router) {
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+    setUser(user);
+  } catch (error) {
+    setUser(null);
+    router.push(MainPaths.AUTH);
+  }
+}
+
 /* Sign Up */
 export async function signUp(email, password, setUiState) {
   try {
@@ -59,10 +69,11 @@ export async function signIn(email, password, setUiState, router) {
 }
 
 /* Sign Out */
-export function signOut(setUiState, setUser) {
-  Auth.signOut();
+export async function signOut(setUiState, setUser, router) {
+  await Auth.signOut();
   setUiState(null);
-  setUser('null');
+  setUser(null);
+  await router.push(MainPaths.INDEX);
 }
 
 /* Forgot Password */

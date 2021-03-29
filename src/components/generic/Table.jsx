@@ -1,20 +1,12 @@
-import { BooksStatus } from '../../enums/books/booksStatus';
+import { getColorStatus } from '../../lib/utils/colorStatus.utils';
 import ReactStars from 'react-rating-stars-component';
 import IconStar from '../icons/iconstar';
 
 const Table = ({ books }) => {
-  const getColorStatus = (status) => {
-    if (status === BooksStatus.TO_READ) return 'bg-blue-100 text-blue-500';
-    if (status === BooksStatus.READING) return 'bg-red-100 text-red-500';
-    if (status === BooksStatus.READY_TO_START)
-      return 'bg-yellow-100 text-yellow-500';
-    if (status === BooksStatus.COMPLETED) return 'bg-green-100 text-green-500';
-  };
-
   return (
-    <div className="shadow overflow-x-auto border-b border-gray-200 rounded-lg">
+    <div className="w-full shadow overflow-x-auto border-b border-gray-200 rounded-lg">
       <table className="w-full divide-y divide-gray-200">
-        <thead className="bg-gray-100">
+        <thead className="bg-indigo-300">
           <tr>
             <th>Name</th>
             <th>Author</th>
@@ -28,7 +20,7 @@ const Table = ({ books }) => {
         <tbody className="bg-white divide-y divide-gray-200">
           {books &&
             books.map((book) => (
-              <tr key={book.name}>
+              <tr key={book.name} className="bg-gray-50">
                 <td className="p-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="text-sm font-medium text-gray-900">
@@ -60,7 +52,7 @@ const Table = ({ books }) => {
                     }
                   />
                 </td>
-                <td className="p-4 whitespace-nowrap text-right text-sm font-medium">
+                <td className="p-4 whitespace-nowrap text-right text-sm font-bold">
                   <span className="text-blue-500">Edit</span>
                 </td>
               </tr>

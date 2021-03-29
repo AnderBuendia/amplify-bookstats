@@ -1,12 +1,22 @@
-type Book @model
-  @key(name: "booksByUsername", fields: ["username"], queryField: "booksByUsername")
-  @auth(rules: [
-    { allow: owner, ownerField: "username" },
-    { allow: public, operations: [read] }
-  ]) {
+type Book
+  @model
+  @key(
+    name: "booksByUsername"
+    fields: ["username"]
+    queryField: "booksByUsername"
+  )
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "username" }
+      { allow: public, operations: [read] }
+    ]
+  ) {
   id: ID!
   name: String!
   author: String
+  pages: Int
+  read_pages: Int
+  image: [String]
+  review: String
   username: String
-  description: String
 }

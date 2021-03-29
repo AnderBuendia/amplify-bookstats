@@ -7,8 +7,11 @@ export const onCreateBook = /* GraphQL */ `
       id
       name
       author
+      pages
+      read_pages
+      image
+      review
       username
-      description
       createdAt
       updatedAt
     }
@@ -20,8 +23,11 @@ export const onUpdateBook = /* GraphQL */ `
       id
       name
       author
+      pages
+      read_pages
+      image
+      review
       username
-      description
       createdAt
       updatedAt
     }
@@ -33,8 +39,11 @@ export const onDeleteBook = /* GraphQL */ `
       id
       name
       author
+      pages
+      read_pages
+      image
+      review
       username
-      description
       createdAt
       updatedAt
     }

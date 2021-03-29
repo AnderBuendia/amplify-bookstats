@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useReducer, createContext } from 'react';
 import AuthReducer from './authReducer';
-import { SET_USER, SET_UI_STATE } from '../types';
+import { SET_USER, SET_UI_STATE } from '../../../enums/types';
 
 const AuthContext = createContext(null);
 
