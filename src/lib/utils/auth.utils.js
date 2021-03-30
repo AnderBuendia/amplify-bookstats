@@ -1,7 +1,7 @@
 import Auth from '@aws-amplify/auth';
 import '../../../configureAmplify';
 import { MainPaths } from '../../enums/paths/main-paths';
-
+import toast from 'react-hot-toast';
 /* Check user */
 export async function checkUser(setUser, setUiState) {
   try {
@@ -64,7 +64,8 @@ export async function signIn(email, password, setUiState, router) {
     setUiState('signedIn');
     await router.push(MainPaths.BOOKS);
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
+    toast.error(err.message);
   }
 }
 

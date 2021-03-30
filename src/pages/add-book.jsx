@@ -2,7 +2,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import MainLayout from '../components/layouts/MainLayout';
 import { MainPaths } from '../enums/paths/main-paths';
-import NewInput from '../components/generic/NewInput';
+import FormikInput from '../components/generic/FormikInput';
 import ErrorForm from '../components/generic/ErrorForm';
 
 const AddBook = () => {
@@ -36,17 +36,17 @@ const AddBook = () => {
         >
           {({ errors, touched }) => (
             <Form>
-              <NewInput label="name" type="text" />
+              <FormikInput name="name" id="name" type="text" />
               {touched.name && errors.name && (
                 <ErrorForm errors={errors.name} />
               )}
 
-              <NewInput label="author" type="text" />
+              <FormikInput name="author" id="author" type="text" />
               {touched.author && errors.author && (
                 <ErrorForm errors={errors.author} />
               )}
 
-              <NewInput label="pages" type="number" />
+              <FormikInput name="pages" id="pages" type="number" />
               {touched.pages && errors.pages && (
                 <ErrorForm errors={errors.pages} />
               )}

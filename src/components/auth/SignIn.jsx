@@ -1,5 +1,5 @@
 import SocialSignIn from './SocialSignIn';
-import Input from '../generic/Input';
+import AuthInput from '../generic/AuthInput';
 
 const SignIn = ({ onChange, setUiState, signIn }) => {
   const handleKeyPress = (e) => {
@@ -11,24 +11,15 @@ const SignIn = ({ onChange, setUiState, signIn }) => {
   return (
     <>
       <p className="text-3xl font-black text-center">Sign in to your account</p>
-      <div className="mt-10">
-        <label htmlFor="email" className="text-sm">
-          Email
-        </label>
-        <Input onChange={onChange} id="email" name="email" />
-      </div>
-      <div className="mt-4 mb-2">
-        <label htmlFor="password" className="text-sm">
-          Password
-        </label>
-        <Input
-          onKeyPress={handleKeyPress}
-          onChange={onChange}
-          name="password"
-          id="password"
-          type="password"
-        />
-      </div>
+      <AuthInput onChange={onChange} id="email" name="email" />
+
+      <AuthInput
+        onKeyPress={handleKeyPress}
+        onChange={onChange}
+        name="password"
+        id="password"
+        type="password"
+      />
       <div>
         <span
           onClick={() => setUiState('forgotPassword')}
