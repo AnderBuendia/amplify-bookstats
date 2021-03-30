@@ -8,6 +8,7 @@ export const getBook = /* GraphQL */ `
       name
       author
       pages
+      status
       read_pages
       image
       review
@@ -29,6 +30,7 @@ export const listBooks = /* GraphQL */ `
         name
         author
         pages
+        status
         read_pages
         image
         review
@@ -60,6 +62,7 @@ export const booksByUsername = /* GraphQL */ `
         name
         author
         pages
+        status
         read_pages
         image
         review
