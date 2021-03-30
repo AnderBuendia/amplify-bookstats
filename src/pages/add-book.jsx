@@ -1,11 +1,18 @@
+import { API } from 'aws-amplify';
+import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
+import '../../configureAmplify';
+import { useRouter } from 'next/router';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import MainLayout from '../components/layouts/MainLayout';
 import { MainPaths } from '../enums/paths/main-paths';
-import NewInput from '../components/generic/NewInput';
+import FormikInput from '../components/generic/FormikInput';
 import ErrorForm from '../components/generic/ErrorForm';
+import { createBook } from '../../graphql/mutations';
 
 const AddBook = () => {
+  const router = useRouter();
+
   const errorMessagesForm = Yup.object().shape({
     name: Yup.string().required('Name of the book is required'),
     author: Yup.string().required('Author of the book is required'),
@@ -30,27 +37,34 @@ const AddBook = () => {
             pages: 0,
           }}
           validationSchema={errorMessagesForm}
-          onSubmit={(values) => {
+          onSubmit={async (values) => {
             console.log(values);
+
+            await API.graphql({
+              query: createBook,
+              variables: {
+                input: values,
+              },
+              authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+            });
+            router.push(MainPaths.BOOKS);
           }}
         >
           {({ errors, touched }) => (
             <Form>
-              <NewInput label="name" type="text" />
+              <FormikInput name="name" id="name" type="text" />
               {touched.name && errors.name && (
                 <ErrorForm errors={errors.name} />
               )}
-
-              <NewInput label="author" type="text" />
+              <FormikInput name="author" id="author" type="text" />
               {touched.author && errors.author && (
                 <ErrorForm errors={errors.author} />
               )}
-
-              <NewInput label="pages" type="number" />
+              <FormikInput name="pages" id="pages" type="number" />
               {touched.pages && errors.pages && (
                 <ErrorForm errors={errors.pages} />
               )}
-
+              // TODO: Add a select with status options
               <button
                 className="text-white w-full mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
                 type="submit"
@@ -66,31 +80,3 @@ const AddBook = () => {
 };
 
 export default AddBook;
-
-{
-  /* <form className="mt-3" onSubmit={onSubmitForm}>
-          <label htmlFor="name" className="text-sm">
-            Name
-          </label>
-          <NewInput id="name" name="name" />
-          <div className="mt-4">
-            <label htmlFor="author" className="text-sm">
-              Author
-            </label>
-            <NewInput id="author" name="author" />
-          </div>
-          <div className="mt-4">
-            <label htmlFor="pages" className="text-sm">
-              Pages
-            </label>
-            <NewInput type="number" id="pages" name="pages" />
-          </div>
-
-          <button
-            className="text-white w-full mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
-            type="submit"
-          >
-            Submit
-          </button>
-        </form> */
-}
