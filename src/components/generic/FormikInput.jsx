@@ -2,7 +2,7 @@ import { Field } from 'formik';
 
 const FormikInput = (props) => {
   return (
-    <>
+    <div className="mt-3">
       <label htmlFor={props.name} className="text-sm capitalize">
         {props.name}
       </label>
@@ -11,7 +11,7 @@ const FormikInput = (props) => {
           w-full focus:shadow-input focus:border-pink-400"
         {...props}
       />
-    </>
+    </div>
   );
 };
 
