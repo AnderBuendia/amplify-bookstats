@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { AuthState } from '../lib/context/auth/authContext';
 import '../styles/globals.css';
 
@@ -5,6 +6,18 @@ function MyApp({ Component, pageProps }) {
   return (
     <AuthState>
       <Component {...pageProps} />
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            margin: '40px',
+            background: '#363636',
+            color: '#fff',
+            zIndex: 1,
+          },
+          duration: 4000,
+        }}
+      />
     </AuthState>
   );
 }

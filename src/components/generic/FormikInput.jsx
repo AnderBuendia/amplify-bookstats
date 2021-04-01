@@ -1,20 +1,18 @@
 import { Field } from 'formik';
 
-const NewInput = ({ label, type }) => {
+const FormikInput = (props) => {
   return (
-    <>
-      <label htmlFor={label} className="text-sm capitalize">
-        {label}
+    <div className="mt-3">
+      <label htmlFor={props.name} className="text-sm capitalize">
+        {props.name}
       </label>
       <Field
         className="outline-none border border-gray-300 rounded p-2 mt-2
           w-full focus:shadow-input focus:border-pink-400"
-        id={label}
-        name={label}
-        type={type}
+        {...props}
       />
-    </>
+    </div>
   );
 };
 
-export default NewInput;
+export default FormikInput;

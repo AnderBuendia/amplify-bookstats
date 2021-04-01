@@ -15,8 +15,10 @@ type Book
   name: String!
   author: String
   pages: Int
-  read_pages: Int
-  image: [String]
+  status: String
+  read_pages: [Int]
+  rating: Int
+  image: String
   review: String
   username: String
 }

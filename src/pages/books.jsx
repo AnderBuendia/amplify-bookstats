@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
@@ -10,20 +10,19 @@ import Table from '../components/generic/Table';
 import Card from '../components/generic/Card';
 import { MainPaths } from '../enums/paths/main-paths';
 import { ResolutionBreakPoints } from '../enums/config/resolution-breakpoints';
-import { Books as BooksForIndex } from '../lib/booksForIndex';
+import { fetchBooks } from '../lib/utils/books.utils';
 
 const Books = () => {
+  const [books, setBooks] = useState([]);
   const { user, setUser } = useContext(AuthContext);
   const router = useRouter();
   const width = useResolution();
 
   useEffect(() => {
     checkAuthUser(setUser, router);
-  }, []);
 
-  const addBook = () => {
-    router.push(MainPaths.ADD_BOOK);
-  };
+    fetchBooks(setBooks);
+  }, []);
 
   if (!user) return null;
 
@@ -37,14 +36,14 @@ const Books = () => {
         <button
           className="w-7/12 p-3 mb-5 font-bold bg-green-500 text-white rounded-md hover:opacity-70 
             transition-opacity duration-500 ease-out"
-          onClick={addBook}
+          onClick={() => router.push(MainPaths.ADD_BOOK)}
         >
           Add New Book
         </button>
         {width > ResolutionBreakPoints.SM ? (
-          <Table books={BooksForIndex} />
+          <Table books={books} />
         ) : (
-          <Card books={BooksForIndex} />
+          <Card books={books} />
         )}
       </div>
     </MainLayout>
