@@ -2,18 +2,19 @@ import Auth from '@aws-amplify/auth';
 import '../../../configureAmplify';
 import { MainPaths } from '../../enums/paths/main-paths';
 import toast from 'react-hot-toast';
-/* Check user */
-export async function checkUser(setUser, setUiState) {
-  try {
-    const user = await Auth.currentAuthenticatedUser();
-    setUser(user);
-    setUiState('signedIn');
-  } catch (err) {
-    setUser(null);
-    setUiState('signIn');
-  }
-}
 
+// export async function checkUser(setUser, setUiState) {
+//   try {
+//     const user = await Auth.currentAuthenticatedUser();
+//     setUser(user);
+//     setUiState('signedIn');
+//   } catch (err) {
+//     setUser(null);
+//     setUiState('signIn');
+//   }
+// }
+
+/* Check user */
 export async function checkAuthUser(setUser, router) {
   try {
     const user = await Auth.currentAuthenticatedUser();
@@ -25,8 +26,10 @@ export async function checkAuthUser(setUser, router) {
 }
 
 /* Sign Up */
-export async function signUp(email, password, setUiState) {
+export async function signUp(values, setIsLoading, setUiState) {
+  const { email, password } = values;
   try {
+    setIsLoading(true);
     await Auth.signUp({
       username: email,
       password,
@@ -34,8 +37,11 @@ export async function signUp(email, password, setUiState) {
     });
 
     setUiState('confirmSignUp');
+    setIsLoading(false);
   } catch (err) {
     console.log(err);
+    toast.error(err.message);
+    setIsLoading(false);
   }
 }
 
@@ -51,21 +57,25 @@ export async function confirmSignUp(
     await Auth.confirmSignUp(email, authCode);
     await Auth.signIn(email, password);
     setUiState('signedIn');
-    await router.push(MainPaths.INDEX);
+    await router.push(MainPaths.BOOKS);
   } catch (err) {
     console.log(err);
   }
 }
 
 /* Sign In */
-export async function signIn(email, password, setUiState, router) {
+export async function signIn(values, setUiState, setIsLoading, router) {
+  const { email, password } = values;
   try {
+    setIsLoading(true);
     await Auth.signIn(email, password);
+
     setUiState('signedIn');
+    setIsLoading(false);
     await router.push(MainPaths.BOOKS);
   } catch (err) {
-    console.log(err.message);
     toast.error(err.message);
+    setIsLoading(false);
   }
 }
 

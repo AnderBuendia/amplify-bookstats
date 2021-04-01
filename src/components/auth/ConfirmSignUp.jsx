@@ -1,29 +1,48 @@
-import AuthInput from '../generic/AuthInput';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import FormikInput from '../generic/FormikInput';
+import ErrorForm from '../generic/ErrorForm';
+import FormButton from '../generic/FormButton';
 
-const ConfirmSignUp = ({ onChange, setUiState, confirmSignUp }) => {
+const ConfirmSignUp = ({ setUiState, confirmSignUp }) => {
+  const errorMessagesForm = Yup.object().shape({
+    name: Yup.string().required('A code is required'),
+  });
+
   return (
-    <div>
+    <>
       <p className="text-3xl font-black">Confirm your account</p>
-
-      <AuthInput
-        onChange={onChange}
-        name="authCode"
-        labelName="Confirmation Code"
-      />
-
-      <button
-        onClick={confirmSignUp}
-        className="text-white w-full mt-6 bg-pink-600 p-3 rounded"
+      <Formik
+        initialValues={{
+          authCode: '',
+        }}
+        validationSchema={errorMessagesForm}
+        onSubmit={confirmSignUp}
       >
-        Confirm Sign Up
-      </button>
-      <button
-        onClick={() => setUiState(null)}
-        className="text-sm mt-6 text-pink-500"
-      >
-        Cancel
-      </button>
-    </div>
+        {({ errors, touched }) => (
+          <Form>
+            <FormikInput
+              name="authCode"
+              id="authCode"
+              type="text"
+              labelName="Confirmation Code"
+            />
+            {touched.authCode && errors.authCode && (
+              <ErrorForm errors={errors.authCode} />
+            )}
+
+            <FormButton labelName="Confirm Sign Up" />
+
+            <button
+              onClick={() => setUiState(null)}
+              className="text-sm mt-6 text-pink-500"
+            >
+              Cancel
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 

@@ -23,7 +23,7 @@ const initialState = {
 };
 
 const Auth = () => {
-  const { uiState, setUiState } = useContext(AuthContext);
+  const { uiState, setUiState, setIsLoading } = useContext(AuthContext);
   const [formState, setFormState] = useState(initialState);
   const { email, password, authCode } = formState;
   const router = useRouter();
@@ -39,21 +39,18 @@ const Auth = () => {
     <AuthLayout>
       {!uiState && (
         <SignIn
-          onChange={onChange}
           setUiState={setUiState}
-          signIn={() => signIn(email, password, setUiState, router)}
+          signIn={(values) => signIn(values, setUiState, setIsLoading, router)}
         />
       )}
       {uiState === 'signUp' && (
         <SignUp
-          onChange={onChange}
           setUiState={setUiState}
-          signUp={() => signUp(email, password, setUiState)}
+          signUp={(values) => signUp(values, setIsLoading, setUiState)}
         />
       )}
       {uiState === 'confirmSignUp' && (
         <ConfirmSignUp
-          onChange={onChange}
           setUiState={setUiState}
           confirmSignUp={() =>
             confirmSignUp(email, password, authCode, setUiState, router)

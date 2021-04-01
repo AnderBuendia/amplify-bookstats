@@ -1,37 +1,68 @@
-import AuthInput from '../generic/AuthInput';
+import { useContext } from 'react';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import AuthContext from '../../lib/context/auth/authContext';
+import FormikInput from '../generic/FormikInput';
+import ErrorForm from '../generic/ErrorForm';
+import Spinner from '../generic/Spinner';
+import FormButton from '../generic/FormButton';
 
-const SignUp = ({ onChange, setUiState, signUp }) => {
+const SignUp = ({ setUiState, signUp }) => {
+  const { isLoading } = useContext(AuthContext);
+
+  const errorMessagesForm = Yup.object().shape({
+    name: Yup.string().required('User name is required'),
+    email: Yup.string().email('Invalid Email.').required('Email is required'),
+    password: Yup.string()
+      .required('Please Enter your password')
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@_$!%*#?&])[A-Za-z\d@_$!%*#?&]{6,}$/,
+        'Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character'
+      ),
+  });
+
   return (
     <>
       <p className="text-3xl font-black text-center">Sign ups for an account</p>
-
-      <AuthInput onChange={onChange} name="name" id="username" />
-
-      <AuthInput onChange={onChange} name="email" id="email" />
-
-      <AuthInput
-        onChange={onChange}
-        name="password"
-        id="password"
-        type="password"
-      />
-
-      <button
-        onClick={signUp}
-        className="text-white w-full mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
+      <Formik
+        initialValues={{
+          name: '',
+          email: '',
+          password: '',
+        }}
+        validationSchema={errorMessagesForm}
+        onSubmit={signUp}
       >
-        Sign Up
-      </button>
-      <p className="mt-8 text-sm font-bold">
-        Have an account?
-        <span
-          onClick={() => setUiState('signIn')}
-          role="button"
-          className="ml-2 cursor-pointer text-pink-600 hover:text-pink-800"
-        >
-          Sign In
-        </span>
-      </p>
+        {({ errors, touched }) => (
+          <Form>
+            <FormikInput name="name" id="name" type="text" />
+            {touched.name && errors.name && <ErrorForm errors={errors.name} />}
+
+            <FormikInput name="email" id="email" type="text" />
+            {touched.email && errors.email && (
+              <ErrorForm errors={errors.email} />
+            )}
+
+            <FormikInput name="password" id="password" type="password" />
+            {touched.password && errors.password && (
+              <ErrorForm errors={errors.password} />
+            )}
+
+            <FormButton labelName="Sign Up" />
+
+            <p className="mt-8 text-sm font-bold">
+              Have an account?
+              <span
+                onClick={() => setUiState('signIn')}
+                role="button"
+                className="ml-2 cursor-pointer text-pink-600 hover:text-pink-800"
+              >
+                Sign In
+              </span>
+            </p>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 };

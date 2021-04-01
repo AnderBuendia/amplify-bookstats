@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { API } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import '../../configureAmplify';
@@ -6,15 +6,17 @@ import { useRouter } from 'next/router';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import MainLayout from '../components/layouts/MainLayout';
+import AuthContext from '../lib/context/auth/authContext';
 import FormikInput from '../components/generic/FormikInput';
 import ErrorForm from '../components/generic/ErrorForm';
 import { getColorStatus } from '../lib/utils/colorStatus.utils';
 import { MainPaths } from '../enums/paths/main-paths';
 import { createBook } from '../../graphql/mutations';
 import Spinner from '../components/generic/Spinner';
+import FormButton from '../components/generic/FormButton';
 
 const AddBook = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, setIsLoading } = useContext(AuthContext);
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({
@@ -94,13 +96,7 @@ const AddBook = () => {
                 </Field>
               </div>
 
-              <button
-                className="flex flex-row items-center justify-center text-white w-full 
-                  mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
-                type="submit"
-              >
-                {isLoading && <Spinner />} Submit
-              </button>
+              <FormButton labelName="Submit" />
             </Form>
           )}
         </Formik>
