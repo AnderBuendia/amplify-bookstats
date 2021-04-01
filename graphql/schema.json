@@ -220,6 +220,17 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "rating",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Int",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "image",
           "description" : null,
           "args" : [ ],
@@ -410,6 +421,15 @@
           "defaultValue" : null
         }, {
           "name" : "read_pages",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIntInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "rating",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -1176,6 +1196,15 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "rating",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Int",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "image",
           "description" : null,
           "type" : {
@@ -1249,6 +1278,15 @@
           "defaultValue" : null
         }, {
           "name" : "read_pages",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIntInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "rating",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -1378,6 +1416,15 @@
               "name" : "Int",
               "ofType" : null
             }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "rating",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Int",
+            "ofType" : null
           },
           "defaultValue" : null
         }, {

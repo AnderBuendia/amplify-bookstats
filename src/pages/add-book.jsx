@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { API } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import '../../configureAmplify';
@@ -10,8 +11,10 @@ import ErrorForm from '../components/generic/ErrorForm';
 import { getColorStatus } from '../lib/utils/colorStatus.utils';
 import { MainPaths } from '../enums/paths/main-paths';
 import { createBook } from '../../graphql/mutations';
+import Spinner from '../components/generic/Spinner';
 
 const AddBook = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({
@@ -22,6 +25,20 @@ const AddBook = () => {
       'Pages are required and must be greater than 0'
     ),
   });
+
+  const handleSubmit = async (values) => {
+    setIsLoading(true);
+    await API.graphql({
+      query: createBook,
+      variables: {
+        input: values,
+      },
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+    });
+
+    router.push(MainPaths.BOOKS);
+    setIsLoading(false);
+  };
 
   return (
     <MainLayout
@@ -39,16 +56,7 @@ const AddBook = () => {
             status: 'To Read',
           }}
           validationSchema={errorMessagesForm}
-          onSubmit={async (values) => {
-            await API.graphql({
-              query: createBook,
-              variables: {
-                input: values,
-              },
-              authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-            });
-            router.push(MainPaths.BOOKS);
-          }}
+          onSubmit={handleSubmit}
         >
           {({ setFieldValue, values, errors, touched }) => (
             <Form>
@@ -87,10 +95,11 @@ const AddBook = () => {
               </div>
 
               <button
-                className="text-white w-full mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
+                className="flex flex-row items-center justify-center text-white w-full 
+                  mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
                 type="submit"
               >
-                Submit
+                {isLoading && <Spinner />} Submit
               </button>
             </Form>
           )}

@@ -24,12 +24,8 @@ const Books = () => {
     fetchBooks(setBooks);
   }, []);
 
-  const addBook = () => {
-    router.push(MainPaths.ADD_BOOK);
-  };
-
   if (!user) return null;
-  console.log(books);
+
   return (
     <MainLayout
       title="My Books"
@@ -40,7 +36,7 @@ const Books = () => {
         <button
           className="w-7/12 p-3 mb-5 font-bold bg-green-500 text-white rounded-md hover:opacity-70 
             transition-opacity duration-500 ease-out"
-          onClick={addBook}
+          onClick={() => router.push(MainPaths.ADD_BOOK)}
         >
           Add New Book
         </button>
