@@ -1,0 +1,21 @@
+.spinner {
+  @apply border-4;
+  @apply border-solid;
+  @apply border-gray-300;
+  @apply w-5;
+  @apply h-5;
+  @apply rounded-full;
+  border-left-color: rgb(95, 95, 95);
+
+  animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

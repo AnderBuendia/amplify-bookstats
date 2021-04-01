@@ -1,16 +1,20 @@
+import { useState } from 'react';
 import { API } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import MainLayout from '../components/layouts/MainLayout';
-import { MainPaths } from '../enums/paths/main-paths';
 import FormikInput from '../components/generic/FormikInput';
 import ErrorForm from '../components/generic/ErrorForm';
+import { getColorStatus } from '../lib/utils/colorStatus.utils';
+import { MainPaths } from '../enums/paths/main-paths';
 import { createBook } from '../../graphql/mutations';
+import Spinner from '../components/generic/Spinner';
 
 const AddBook = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({
@@ -22,35 +26,39 @@ const AddBook = () => {
     ),
   });
 
+  const handleSubmit = async (values) => {
+    setIsLoading(true);
+    await API.graphql({
+      query: createBook,
+      variables: {
+        input: values,
+      },
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+    });
+
+    router.push(MainPaths.BOOKS);
+    setIsLoading(false);
+  };
+
   return (
     <MainLayout
       title="Add Book"
       description="Add a new book to your list"
       url={MainPaths.ADD_BOOK}
     >
-      <div className="w-11/12 bg-white rounded-md p-6 mt-6">
+      <div className="w-11/12 lg:w-6/12 bg-white rounded-md p-6 mt-6">
         <h1 className="font-bold text-xl text-center">Add New Book</h1>
         <Formik
           initialValues={{
             name: '',
             author: '',
             pages: 0,
+            status: 'To Read',
           }}
           validationSchema={errorMessagesForm}
-          onSubmit={async (values) => {
-            console.log(values);
-
-            await API.graphql({
-              query: createBook,
-              variables: {
-                input: values,
-              },
-              authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-            });
-            router.push(MainPaths.BOOKS);
-          }}
+          onSubmit={handleSubmit}
         >
-          {({ errors, touched }) => (
+          {({ setFieldValue, values, errors, touched }) => (
             <Form>
               <FormikInput name="name" id="name" type="text" />
               {touched.name && errors.name && (
@@ -60,16 +68,38 @@ const AddBook = () => {
               {touched.author && errors.author && (
                 <ErrorForm errors={errors.author} />
               )}
-              <FormikInput name="pages" id="pages" type="number" />
-              {touched.pages && errors.pages && (
-                <ErrorForm errors={errors.pages} />
-              )}
-              // TODO: Add a select with status options
+
+              <div className="flex flex-row justify-between items-center">
+                <FormikInput name="pages" id="pages" type="number" />
+                {touched.pages && errors.pages && (
+                  <ErrorForm errors={errors.pages} />
+                )}
+
+                <Field
+                  as="select"
+                  name="status"
+                  value={values.status}
+                  onChange={(e) => {
+                    setFieldValue('status', e.target.value);
+                  }}
+                  className={`${getColorStatus(
+                    values.status
+                  )} mt-10 px-4 py-2 w-5/12 rounded-full font-bold cursor-pointer 
+                shadow-md text-center appearance-none relative hover:opacity-70`}
+                >
+                  <option value="To Read">To Read</option>
+                  <option value="Ready To Start">Ready To Start</option>
+                  <option value="Reading">Reading</option>
+                  <option value="Completed">Completed</option>
+                </Field>
+              </div>
+
               <button
-                className="text-white w-full mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
+                className="flex flex-row items-center justify-center text-white w-full 
+                  mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
                 type="submit"
               >
-                Submit
+                {isLoading && <Spinner />} Submit
               </button>
             </Form>
           )}

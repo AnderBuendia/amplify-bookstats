@@ -17,6 +17,7 @@ type Book
   pages: Int
   status: String
   read_pages: [Int]
+  rating: Int
   image: String
   review: String
   username: String

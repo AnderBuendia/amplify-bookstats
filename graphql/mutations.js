@@ -13,6 +13,7 @@ export const createBook = /* GraphQL */ `
       pages
       status
       read_pages
+      rating
       image
       review
       username
@@ -33,6 +34,7 @@ export const updateBook = /* GraphQL */ `
       pages
       status
       read_pages
+      rating
       image
       review
       username
@@ -53,6 +55,7 @@ export const deleteBook = /* GraphQL */ `
       pages
       status
       read_pages
+      rating
       image
       review
       username
