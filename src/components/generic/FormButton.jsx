@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import AuthContext from '../../lib/context/auth/authContext';
+import AuthContext from 'lib/context/auth/authContext';
 import Spinner from './Spinner';
 
 const FormButton = ({ labelName }) => {

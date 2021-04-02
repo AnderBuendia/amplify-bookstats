@@ -1,8 +1,8 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import FormikInput from '../generic/FormikInput';
-import ErrorForm from '../generic/ErrorForm';
-import FormButton from '../generic/FormButton';
+import FormikInput from 'components/generic/FormikInput';
+import ErrorForm from 'components/generic/ErrorForm';
+import FormButton from 'components/generic/FormButton';
 
 const SignUp = ({ setUiState, signUp }) => {
   const errorMessagesForm = Yup.object().shape({
@@ -18,7 +18,9 @@ const SignUp = ({ setUiState, signUp }) => {
 
   return (
     <>
-      <p className="text-3xl font-black text-center">Sign ups for an account</p>
+      <p className="text-3xl pb-2 font-black text-center">
+        Sign up for an account
+      </p>
       <Formik
         initialValues={{
           name: '',
@@ -48,7 +50,7 @@ const SignUp = ({ setUiState, signUp }) => {
             <p className="mt-8 text-sm font-bold">
               Have an account?
               <span
-                onClick={() => setUiState('signIn')}
+                onClick={() => setUiState(null)}
                 role="button"
                 className="ml-2 cursor-pointer text-pink-600 hover:text-pink-800"
               >

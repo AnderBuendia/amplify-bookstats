@@ -1,6 +1,6 @@
-import { getColorStatus } from '../../lib/utils/colorStatus.utils';
+import { getColorStatus } from 'lib/utils/colorStatus.utils';
 import ReactStars from 'react-rating-stars-component';
-import IconStar from '../icons/iconstar';
+import IconStar from 'components/icons/iconstar';
 
 const Card = ({ books }) => {
   return books.map((book) => (

@@ -1,4 +1,4 @@
-import { SET_USER, SET_UI_STATE, SET_IS_LOADING } from '../../../enums/types';
+import { SET_USER, SET_UI_STATE, SET_IS_LOADING } from 'enums/types';
 
 const AuthReducer = (state, action) => {
   switch (action.type) {

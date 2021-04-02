@@ -5,14 +5,14 @@ import '../../configureAmplify';
 import { useRouter } from 'next/router';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import MainLayout from '../components/layouts/MainLayout';
-import AuthContext from '../lib/context/auth/authContext';
-import FormikInput from '../components/generic/FormikInput';
-import ErrorForm from '../components/generic/ErrorForm';
-import { getColorStatus } from '../lib/utils/colorStatus.utils';
-import { MainPaths } from '../enums/paths/main-paths';
+import MainLayout from 'components/layouts/MainLayout';
+import AuthContext from 'lib/context/auth/authContext';
+import FormikInput from 'components/generic/FormikInput';
+import ErrorForm from 'components/generic/ErrorForm';
+import FormButton from 'components/generic/FormButton';
+import { getColorStatus } from 'lib/utils/colorStatus.utils';
+import { MainPaths } from 'enums/paths/main-paths';
 import { createBook } from '../../graphql/mutations';
-import FormButton from '../components/generic/FormButton';
 
 const AddBook = () => {
   const { setIsLoading } = useContext(AuthContext);

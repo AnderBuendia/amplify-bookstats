@@ -1,6 +1,6 @@
 import Auth from '@aws-amplify/auth';
 import '../../../configureAmplify';
-import { MainPaths } from '../../enums/paths/main-paths';
+import { MainPaths } from 'enums/paths/main-paths';
 import toast from 'react-hot-toast';
 
 /* Check user */
@@ -72,29 +72,24 @@ export async function signOut(setUiState, setUser, router) {
 }
 
 /* Forgot Password */
-export async function forgotPassword(email, setUiState) {
+export async function forgotPassword(values, setUiState, setUser) {
   try {
-    await Auth.forgotPassword(email);
+    await Auth.forgotPassword(values.email);
     setUiState('forgotPasswordSubmit');
+    setUser(values.email);
   } catch (err) {
-    console.log(err);
+    toast(err.message);
   }
 }
 
 /* Forgot Password Submit */
-export async function forgotPasswordSubmit(
-  email,
-  authCode,
-  password,
-  setUiState,
-  router
-) {
-  console.log('pass', password);
+export async function forgotPasswordSubmit(values, setUiState, user, setUser) {
+  const { password, authCode } = values;
   try {
-    await Auth.forgotPasswordSubmit(email, authCode, password);
+    await Auth.forgotPasswordSubmit(user, authCode, password);
     setUiState(null);
-    await router.push(MainPaths.INDEX);
+    setUser(null);
   } catch (err) {
-    console.log(err);
+    toast(err.message);
   }
 }

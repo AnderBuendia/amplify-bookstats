@@ -1,8 +1,8 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import FormikInput from '../generic/FormikInput';
-import ErrorForm from '../generic/ErrorForm';
-import FormButton from '../generic/FormButton';
+import FormikInput from 'components/generic/FormikInput';
+import ErrorForm from 'components/generic/ErrorForm';
+import FormButton from 'components/generic/FormButton';
 
 const ConfirmSignUp = ({ setUiState, confirmSignUp }) => {
   const errorMessagesForm = Yup.object().shape({
@@ -11,7 +11,9 @@ const ConfirmSignUp = ({ setUiState, confirmSignUp }) => {
 
   return (
     <>
-      <p className="text-3xl font-black">Confirm your account</p>
+      <p className="text-3xl pb-2 font-black text-center">
+        Confirm your account
+      </p>
       <Formik
         initialValues={{
           authCode: '',
