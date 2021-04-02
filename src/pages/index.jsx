@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import useResolution from '../hooks/useResolution';
-import MainLayout from '../components/layouts/MainLayout';
-import Table from '../components/generic/Table';
-import Card from '../components/generic/Card';
-import { MainPaths } from '../enums/paths/main-paths';
-import { ResolutionBreakPoints } from '../enums/config/resolution-breakpoints';
-import { Books } from '../lib/booksForIndex';
+import useResolution from 'hooks/useResolution';
+import MainLayout from 'components/layouts/MainLayout';
+import Table from 'components/generic/Table';
+import Card from 'components/generic/Card';
+import { MainPaths } from 'enums/paths/main-paths';
+import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
+import { Books } from 'lib/booksForIndex';
 
 export default function Home() {
   const width = useResolution();

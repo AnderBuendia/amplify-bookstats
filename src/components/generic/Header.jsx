@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import AuthContext from '../../lib/context/auth/authContext';
-import { signOut } from '../../lib/utils/auth.utils';
-import { MainPaths } from '../../enums/paths/main-paths';
-import IconBooks from '../icons/iconbooks';
+import AuthContext from 'lib/context/auth/authContext';
+import { signOut } from 'lib/utils/auth.utils';
+import { MainPaths } from 'enums/paths/main-paths';
+import IconBooks from 'components/icons/iconbooks';
 
 const Header = () => {
   const { user, uiState, setUser, setUiState } = useContext(AuthContext);

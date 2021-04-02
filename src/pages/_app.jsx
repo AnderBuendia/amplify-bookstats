@@ -1,6 +1,6 @@
 import { Toaster } from 'react-hot-toast';
-import { AuthState } from '../lib/context/auth/authContext';
-import '../styles/globals.css';
+import { AuthState } from 'lib/context/auth/authContext';
+import 'styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   return (

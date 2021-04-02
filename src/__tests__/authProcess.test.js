@@ -3,8 +3,8 @@ import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import { Auth as AuthAmp } from '@aws-amplify/auth';
 import '../../configureAmplify';
-import SignIn from '../components/auth/SignIn';
-import SignUp from '../components/auth/SignUp';
+import SignIn from 'components/auth/SignIn';
+import SignUp from 'components/auth/SignUp';
 
 AuthAmp.signIn = jest.fn().mockImplementation(() => {
   return true;
@@ -16,9 +16,7 @@ AuthAmp.signUp = jest.fn().mockImplementation(() => {
 
 describe('Auth Tests', () => {
   test('Check Sign In', () => {
-    render(
-      <SignIn onChange={jest.fn()} setUiState={jest.fn()} signIn={jest.fn()} />
-    );
+    render(<SignIn setUiState={jest.fn()} signIn={jest.fn()} />);
 
     const emailInput = screen.getByLabelText(/email/i);
     userEvent.clear(emailInput);
@@ -35,9 +33,7 @@ describe('Auth Tests', () => {
   });
 
   test('Check Sign Up', () => {
-    render(
-      <SignUp onChange={jest.fn()} setUiState={jest.fn()} signUp={jest.fn()} />
-    );
+    render(<SignUp setUiState={jest.fn()} signUp={jest.fn()} />);
 
     const usernameInput = screen.getByLabelText(/username/i);
     userEvent.clear(usernameInput);

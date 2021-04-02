@@ -1,16 +1,15 @@
 import { useContext, useState, useEffect } from 'react';
-import { Auth } from 'aws-amplify';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
-import { checkAuthUser } from '../lib/utils/auth.utils';
-import AuthContext from '../lib/context/auth/authContext';
-import useResolution from '../hooks/useResolution';
-import MainLayout from '../components/layouts/MainLayout';
-import Table from '../components/generic/Table';
-import Card from '../components/generic/Card';
-import { MainPaths } from '../enums/paths/main-paths';
-import { ResolutionBreakPoints } from '../enums/config/resolution-breakpoints';
-import { fetchBooks } from '../lib/utils/books.utils';
+import { checkAuthUser } from 'lib/utils/auth.utils';
+import AuthContext from 'lib/context/auth/authContext';
+import useResolution from 'hooks/useResolution';
+import MainLayout from 'components/layouts/MainLayout';
+import Table from 'components/generic/Table';
+import Card from 'components/generic/Card';
+import { MainPaths } from 'enums/paths/main-paths';
+import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
+import { fetchBooks } from 'lib/utils/books.utils';
 
 const Books = () => {
   const [books, setBooks] = useState([]);
