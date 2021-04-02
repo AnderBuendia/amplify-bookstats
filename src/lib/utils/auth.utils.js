@@ -3,17 +3,6 @@ import '../../../configureAmplify';
 import { MainPaths } from '../../enums/paths/main-paths';
 import toast from 'react-hot-toast';
 
-// export async function checkUser(setUser, setUiState) {
-//   try {
-//     const user = await Auth.currentAuthenticatedUser();
-//     setUser(user);
-//     setUiState('signedIn');
-//   } catch (err) {
-//     setUser(null);
-//     setUiState('signIn');
-//   }
-// }
-
 /* Check user */
 export async function checkAuthUser(setUser, router) {
   try {
@@ -26,7 +15,7 @@ export async function checkAuthUser(setUser, router) {
 }
 
 /* Sign Up */
-export async function signUp(values, setIsLoading, setUiState) {
+export async function signUp(values, setIsLoading, setUiState, setUser) {
   const { email, password } = values;
   try {
     setIsLoading(true);
@@ -37,29 +26,24 @@ export async function signUp(values, setIsLoading, setUiState) {
     });
 
     setUiState('confirmSignUp');
+    setUser(email);
     setIsLoading(false);
   } catch (err) {
-    console.log(err);
     toast.error(err.message);
     setIsLoading(false);
   }
 }
 
 /* Confirm Sign Up */
-export async function confirmSignUp(
-  email,
-  password,
-  authCode,
-  setUiState,
-  router
-) {
+export async function confirmSignUp(values, user, setUiState, setIsLoading) {
   try {
-    await Auth.confirmSignUp(email, authCode);
-    await Auth.signIn(email, password);
-    setUiState('signedIn');
-    await router.push(MainPaths.BOOKS);
+    setIsLoading(true);
+    await Auth.confirmSignUp(user, values.authCode);
+    setUiState(null);
+    setIsLoading(false);
   } catch (err) {
-    console.log(err);
+    toast.error(err.message);
+    setIsLoading(false);
   }
 }
 

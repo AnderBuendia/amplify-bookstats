@@ -1,15 +1,10 @@
-import { useContext } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import AuthContext from '../../lib/context/auth/authContext';
 import FormikInput from '../generic/FormikInput';
 import ErrorForm from '../generic/ErrorForm';
-import Spinner from '../generic/Spinner';
 import FormButton from '../generic/FormButton';
 
 const SignUp = ({ setUiState, signUp }) => {
-  const { isLoading } = useContext(AuthContext);
-
   const errorMessagesForm = Yup.object().shape({
     name: Yup.string().required('User name is required'),
     email: Yup.string().email('Invalid Email.').required('Email is required'),

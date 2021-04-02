@@ -6,7 +6,7 @@ import FormButton from '../generic/FormButton';
 
 const ConfirmSignUp = ({ setUiState, confirmSignUp }) => {
   const errorMessagesForm = Yup.object().shape({
-    name: Yup.string().required('A code is required'),
+    authCode: Yup.string().required('A code is required'),
   });
 
   return (

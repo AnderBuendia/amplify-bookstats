@@ -12,11 +12,10 @@ import ErrorForm from '../components/generic/ErrorForm';
 import { getColorStatus } from '../lib/utils/colorStatus.utils';
 import { MainPaths } from '../enums/paths/main-paths';
 import { createBook } from '../../graphql/mutations';
-import Spinner from '../components/generic/Spinner';
 import FormButton from '../components/generic/FormButton';
 
 const AddBook = () => {
-  const { isLoading, setIsLoading } = useContext(AuthContext);
+  const { setIsLoading } = useContext(AuthContext);
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({

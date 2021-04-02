@@ -1,15 +1,11 @@
-import { useContext } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import AuthContext from '../../lib/context/auth/authContext';
 import FormikInput from '../generic/FormikInput';
 import ErrorForm from '../generic/ErrorForm';
 import SocialSignIn from './SocialSignIn';
-import Spinner from '../generic/Spinner';
+import FormButton from '../generic/FormButton';
 
 const SignIn = ({ setUiState, signIn }) => {
-  const { isLoading } = useContext(AuthContext);
-
   const errorMessagesForm = Yup.object().shape({
     email: Yup.string().email('Invalid Email.').required('Email is required'),
     password: Yup.string()
@@ -52,13 +48,7 @@ const SignIn = ({ setUiState, signIn }) => {
               </span>
             </div>
 
-            <button
-              className="flex flex-row items-center justify-center text-white w-full 
-                mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
-              type="submit"
-            >
-              {isLoading && <Spinner />} Sign in
-            </button>
+            <FormButton labelName="Sign In" />
 
             <div className="my-5 border border-gray-300"></div>
 
