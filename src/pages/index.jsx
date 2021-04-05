@@ -42,7 +42,7 @@ export default function Home() {
             {width > ResolutionBreakPoints.SM ? (
               <Table books={Books} />
             ) : (
-              <Card books={Books} />
+              <Card books={Books} user={null} />
             )}
           </div>
         </div>

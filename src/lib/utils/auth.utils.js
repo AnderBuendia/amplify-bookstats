@@ -65,10 +65,15 @@ export async function signIn(values, setUiState, setIsLoading, router) {
 
 /* Sign Out */
 export async function signOut(setUiState, setUser, router) {
-  await Auth.signOut();
-  setUiState(null);
-  setUser(null);
-  await router.push(MainPaths.INDEX);
+  try {
+    await Auth.signOut();
+    setUiState(null);
+    setUser(null);
+    await router.push(MainPaths.INDEX);
+    toast.success('You have been disconnected');
+  } catch (error) {
+    toast.error(error.message);
+  }
 }
 
 /* Forgot Password */
@@ -78,7 +83,7 @@ export async function forgotPassword(values, setUiState, setUser) {
     setUiState('forgotPasswordSubmit');
     setUser(values.email);
   } catch (err) {
-    toast(err.message);
+    toast.error(err.message);
   }
 }
 
@@ -90,6 +95,6 @@ export async function forgotPasswordSubmit(values, setUiState, user, setUser) {
     setUiState(null);
     setUser(null);
   } catch (err) {
-    toast(err.message);
+    toast.error(err.message);
   }
 }

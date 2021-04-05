@@ -42,7 +42,7 @@ const Books = () => {
         {width > ResolutionBreakPoints.SM ? (
           <Table books={books} />
         ) : (
-          <Card books={books} />
+          <Card books={books} user={user} />
         )}
       </div>
     </MainLayout>
