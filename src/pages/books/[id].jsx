@@ -1,12 +1,11 @@
 import { API } from 'aws-amplify';
 import '../../../configureAmplify';
 import MainLayout from 'components/layouts/MainLayout';
-import BookSection from 'components/generic/BookSection';
+import BookSection from 'components/book/BookSection';
 import { getBook, listBooks } from '../../../graphql/queries';
 import { MainPaths } from 'enums/paths/main-paths';
 
 const Book = ({ book }) => {
-  console.log(book);
   return (
     <MainLayout
       title={book.name}

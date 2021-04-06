@@ -1,8 +1,8 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import FormikInput from 'components/generic/FormikInput';
-import ErrorForm from 'components/generic/ErrorForm';
-import FormButton from 'components/generic/FormButton';
+import FormikInput from 'components/form/FormikInput';
+import ErrorForm from 'components/form/ErrorForm';
+import FormButton from 'components/form/FormButton';
 
 const ForgotPasswordSubmit = ({ forgotPasswordSubmit }) => {
   const errorMessagesForm = Yup.object().shape({

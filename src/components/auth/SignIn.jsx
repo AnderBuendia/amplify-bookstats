@@ -1,9 +1,9 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import FormikInput from 'components/generic/FormikInput';
-import ErrorForm from 'components/generic/ErrorForm';
+import FormikInput from 'components/form/FormikInput';
+import ErrorForm from 'components/form/ErrorForm';
 import SocialSignIn from 'components/auth/SocialSignIn';
-import FormButton from 'components/generic/FormButton';
+import FormButton from 'components/form/FormButton';
 
 const SignIn = ({ setUiState, signIn }) => {
   const errorMessagesForm = Yup.object().shape({

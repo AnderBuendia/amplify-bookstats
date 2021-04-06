@@ -3,14 +3,14 @@ import { API } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import MainLayout from 'components/layouts/MainLayout';
 import AuthContext from 'lib/context/auth/authContext';
-import FormikInput from 'components/generic/FormikInput';
-import ErrorForm from 'components/generic/ErrorForm';
-import FormButton from 'components/generic/FormButton';
-import { getColorStatus } from 'lib/utils/colorStatus.utils';
+import FormikInput from 'components/form/FormikInput';
+import ErrorForm from 'components/form/ErrorForm';
+import FormButton from 'components/form/FormButton';
+import BookStatus from 'components/form/BookStatus';
 import { MainPaths } from 'enums/paths/main-paths';
 import { createBook } from '../../graphql/mutations';
 
@@ -76,23 +76,10 @@ const AddBook = () => {
                   <ErrorForm errors={errors.pages} />
                 )}
 
-                <Field
-                  as="select"
-                  name="status"
-                  value={values.status}
-                  onChange={(e) => {
-                    setFieldValue('status', e.target.value);
-                  }}
-                  className={`${getColorStatus(
-                    values.status
-                  )} mt-10 px-4 py-2 w-5/12 rounded-full font-bold cursor-pointer 
-                shadow-md text-center appearance-none relative hover:opacity-70`}
-                >
-                  <option value="To Read">To Read</option>
-                  <option value="Ready To Start">Ready To Start</option>
-                  <option value="Reading">Reading</option>
-                  <option value="Completed">Completed</option>
-                </Field>
+                <BookStatus
+                  setFieldValue={setFieldValue}
+                  status={values.status}
+                />
               </div>
 
               <FormButton labelName="Submit" />
