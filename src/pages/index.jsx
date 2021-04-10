@@ -16,7 +16,7 @@ export default function Home() {
       description="List your books"
       url={MainPaths.INDEX}
     >
-      <div className="w-11/12 flex-col mt-28 text-center">
+      <div className="w-11/12  flex-col mt-28 text-center">
         <div className="overlay"></div>
 
         <h1 className="index-title">Bookstats</h1>
@@ -40,7 +40,7 @@ export default function Home() {
           </div>
           <div className="bg-white p-6 px-4">
             {width > ResolutionBreakPoints.SM ? (
-              <Table books={Books} />
+              <Table books={Books} user={null} />
             ) : (
               <Card books={Books} user={null} />
             )}

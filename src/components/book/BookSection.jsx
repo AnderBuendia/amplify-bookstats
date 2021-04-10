@@ -1,8 +1,15 @@
+import { useState, useContext } from 'react';
+import AppContext from 'lib/context/app/appContext';
+import { readPagesAvgMins } from 'lib/utils/books.utils';
 import RatingStars from 'components/generic/RatingStars';
 import FormEditBook from 'components/book/FormEditBook';
-import { validateYupSchema } from 'formik';
 
 const BookSection = ({ book }) => {
+  const [openEdit, setOpenEdit] = useState(false);
+  const { updatedBook, setIsLoading, setUpdatedBook } = useContext(AppContext);
+
+  const dataBook = updatedBook ? updatedBook : book;
+
   const {
     id,
     name,
@@ -10,23 +17,24 @@ const BookSection = ({ book }) => {
     rating,
     pages,
     status,
+    review,
     read_pages,
     createdAt,
     updatedAt,
-  } = book;
+  } = dataBook;
   const createdDate = new Date(createdAt);
   const completedDate = new Date(updatedAt);
 
   return (
-    <div className="flex flex-col">
-      <div className="container mx-auto mt-8 w-11/12 p-5 bg-white rounded-md shadow-md">
+    <div className="flex flex-col w-11/12 justify-center items-center">
+      <div className="container mx-auto mt-4 p-5 bg-white rounded-md shadow-md">
         <div className="flex flex-row justify-between items-center">
           <h1 className="font-bold text-lg ">{name}</h1>
           <h3 className="font-light text-gray-500">{author}</h3>
         </div>
         <div className="my-4 flex flex-row justify-between items-center">
           <p>
-            Pages: <span className="font-light text-gray-500">{pages}</span>
+            Pages <span className="font-light text-gray-500">{pages}</span>
           </p>
           <RatingStars bookId={id} bookRating={rating} />
         </div>
@@ -34,7 +42,7 @@ const BookSection = ({ book }) => {
           <div className="w-1/3 flex flex-col">
             <p>Time left</p>
             <p className="text-gray-500 font-light">
-              {read_pages ? read_pages : Math.round(pages * 1.15)} mins
+              {readPagesAvgMins(read_pages, pages)} mins
             </p>
           </div>
           <div className="w-1/3 flex flex-col border-r border-l">
@@ -52,10 +60,30 @@ const BookSection = ({ book }) => {
             </p>
           </div>
         </div>
+        {review && (
+          <div className="w-full mt-3">
+            <p>Review</p>
+            <div className="mt-1 p-2 bg-gray-200 rounded-md text-black">
+              {review}
+            </div>
+          </div>
+        )}
       </div>
-      <div className="container mx-auto mt-8 w-11/12 p-5 bg-white rounded-md shadow-md">
-        <FormEditBook book={book} />
-      </div>
+      {openEdit ? (
+        <FormEditBook
+          book={dataBook}
+          setUpdatedBook={setUpdatedBook}
+          setIsLoading={setIsLoading}
+        />
+      ) : (
+        <button
+          className="object-center w-7/12 p-3 mt-5 font-bold bg-green-500 text-white rounded-md hover:opacity-70 
+          transition-opacity duration-500 ease-out"
+          onClick={() => setOpenEdit(true)}
+        >
+          Edit Book
+        </button>
+      )}
     </div>
   );
 };

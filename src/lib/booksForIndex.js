@@ -5,6 +5,7 @@ export const Books = [
     author: 'Dostoievsky',
     status: 'Completed',
     rating: 4,
+    pages: 0,
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const Books = [
     author: 'Hesse',
     status: 'Reading',
     rating: 0,
+    pages: 20,
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export const Books = [
     author: 'Márquez',
     status: 'Ready To Start',
     rating: 0,
+    pages: 417,
   },
   {
     id: 4,
@@ -26,5 +29,6 @@ export const Books = [
     author: 'Plato',
     status: 'To Read',
     rating: 0,
+    pages: 111,
   },
 ];

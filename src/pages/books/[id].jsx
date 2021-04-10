@@ -1,18 +1,18 @@
 import { API } from 'aws-amplify';
 import '../../../configureAmplify';
 import MainLayout from 'components/layouts/MainLayout';
-import BookSection from 'components/book/BookSection';
-import { getBook, listBooks } from '../../../graphql/queries';
+import { getBook, listBooks } from 'graphql/queries';
 import { MainPaths } from 'enums/paths/main-paths';
+import BookSection from 'components/book/BookSection';
 
-const Book = ({ book }) => {
+const Book = ({ bookData }) => {
   return (
     <MainLayout
-      title={book.name}
+      title={bookData.name}
       description="See more data of your favorite books"
-      url={`${MainPaths.BOOKS}/${book.id}`}
+      url={`${MainPaths.BOOKS}/${bookData.id}`}
     >
-      <BookSection book={book} />
+      <BookSection book={bookData} />
     </MainLayout>
   );
 };
@@ -38,6 +38,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   console.log(params);
   const { id } = params;
+
   const bookData = await API.graphql({
     query: getBook,
     variables: {
@@ -48,7 +49,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       // @ts-ignore
-      book: bookData.data.getBook,
+      bookData: bookData.data.getBook,
     },
     revalidate: 60,
   };

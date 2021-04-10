@@ -2,7 +2,7 @@ import { API } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import ReactStars from 'react-rating-stars-component';
 import IconStar from 'components/icons/iconstar';
-import { updateBook } from '../../../graphql/mutations';
+import { updateBook } from 'graphql/mutations';
 
 const RatingStars = ({ bookId, bookRating }) => {
   const onClick = (e) => {
@@ -23,7 +23,7 @@ const RatingStars = ({ bookId, bookRating }) => {
   };
 
   return (
-    <div onClick={onClick}>
+    <div className="flex justify-center" onClick={onClick}>
       <ReactStars
         classNames="focus:outline-none z-10"
         onChange={(rating) => onChangeRating(bookId, rating)}

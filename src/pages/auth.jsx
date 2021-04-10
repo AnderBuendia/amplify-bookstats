@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
-import AuthContext from 'lib/context/auth/authContext';
+import AppContext from 'lib/context/app/appContext';
 import AuthLayout from 'components/layouts/AuthLayout';
 import SignUp from 'components/auth/SignUp';
 import ConfirmSignUp from 'components/auth/ConfirmSignUp';
@@ -19,7 +19,7 @@ import {
 const Auth = () => {
   const router = useRouter();
   const { user, setUser, uiState, setUiState, setIsLoading } = useContext(
-    AuthContext
+    AppContext
   );
 
   return (

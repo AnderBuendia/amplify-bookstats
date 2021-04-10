@@ -6,16 +6,16 @@ import { useRouter } from 'next/router';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import MainLayout from 'components/layouts/MainLayout';
-import AuthContext from 'lib/context/auth/authContext';
+import AppContext from 'lib/context/app/appContext';
 import FormikInput from 'components/form/FormikInput';
 import ErrorForm from 'components/form/ErrorForm';
 import FormButton from 'components/form/FormButton';
 import BookStatus from 'components/form/BookStatus';
 import { MainPaths } from 'enums/paths/main-paths';
-import { createBook } from '../../graphql/mutations';
+import { createBook } from 'graphql/mutations';
 
 const AddBook = () => {
-  const { setIsLoading } = useContext(AuthContext);
+  const { setIsLoading } = useContext(AppContext);
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({

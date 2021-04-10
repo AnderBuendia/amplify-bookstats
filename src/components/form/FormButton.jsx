@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import AuthContext from 'lib/context/auth/authContext';
+import AppContext from 'lib/context/app/appContext';
 import Spinner from '../generic/Spinner';
 
 const FormButton = ({ labelName }) => {
-  const { isLoading } = useContext(AuthContext);
+  const { isLoading } = useContext(AppContext);
   return (
     <button
       className="flex flex-row items-center justify-center text-white w-full 
