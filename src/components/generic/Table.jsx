@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import '../../../configureAmplify';
 import { getColorStatus } from '../../lib/utils/colorStatus.utils';
 import { readPagesAvgMins } from 'lib/utils/books.utils';
 import RatingStars from 'components/generic/RatingStars';
