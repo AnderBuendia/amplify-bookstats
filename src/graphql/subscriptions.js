@@ -1,6 +1,24 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onUpdateBookId = /* GraphQL */ `
+  subscription OnUpdateBookId($id: ID) {
+    onUpdateBookId(id: $id) {
+      id
+      name
+      author
+      pages
+      status
+      read_pages
+      rating
+      image
+      review
+      username
+      updatedAt
+      createdAt
+    }
+  }
+`;
 export const onCreateBook = /* GraphQL */ `
   subscription OnCreateBook($username: String) {
     onCreateBook(username: $username) {
@@ -14,8 +32,8 @@ export const onCreateBook = /* GraphQL */ `
       image
       review
       username
-      createdAt
       updatedAt
+      createdAt
     }
   }
 `;
@@ -32,8 +50,8 @@ export const onUpdateBook = /* GraphQL */ `
       image
       review
       username
-      createdAt
       updatedAt
+      createdAt
     }
   }
 `;
@@ -50,8 +68,8 @@ export const onDeleteBook = /* GraphQL */ `
       image
       review
       username
-      createdAt
       updatedAt
+      createdAt
     }
   }
 `;

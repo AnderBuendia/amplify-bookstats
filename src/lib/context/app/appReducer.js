@@ -1,4 +1,9 @@
-import { SET_USER, SET_UI_STATE, SET_IS_LOADING } from 'enums/types';
+import {
+  SET_USER,
+  SET_UI_STATE,
+  SET_IS_LOADING,
+  SET_UPDATED_BOOK,
+} from 'enums/types';
 
 const ACTIONS_REDUCERS = {
   [SET_USER]: (state, action) => ({
@@ -13,11 +18,15 @@ const ACTIONS_REDUCERS = {
     ...state,
     isLoading: action.payload,
   }),
+  [SET_UPDATED_BOOK]: (state, action) => ({
+    ...state,
+    updatedBook: action.payload,
+  }),
 };
 
-const AuthReducer = (state, action) => {
+const AppReducer = (state, action) => {
   const actionReducer = ACTIONS_REDUCERS[action.type];
   return actionReducer ? actionReducer(state, action) : state;
 };
 
-export default AuthReducer;
+export default AppReducer;

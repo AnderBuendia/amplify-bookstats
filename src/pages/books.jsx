@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
 import { checkAuthUser } from 'lib/utils/auth.utils';
-import AuthContext from 'lib/context/auth/authContext';
+import AppContext from 'lib/context/app/appContext';
 import useResolution from 'hooks/useResolution';
 import MainLayout from 'components/layouts/MainLayout';
 import Table from 'components/generic/Table';
@@ -13,14 +13,16 @@ import { fetchBooks } from 'lib/utils/books.utils';
 
 const Books = () => {
   const [books, setBooks] = useState([]);
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AppContext);
   const router = useRouter();
   const width = useResolution();
 
   useEffect(() => {
     checkAuthUser(setUser, router);
 
-    fetchBooks(setBooks);
+    if (user) {
+      fetchBooks(setBooks);
+    }
   }, []);
 
   if (!user) return null;
@@ -40,7 +42,7 @@ const Books = () => {
           Add New Book
         </button>
         {width > ResolutionBreakPoints.SM ? (
-          <Table books={books} />
+          <Table books={books} user={user} />
         ) : (
           <Card books={books} user={user} />
         )}
