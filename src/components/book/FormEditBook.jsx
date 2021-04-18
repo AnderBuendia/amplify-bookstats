@@ -24,12 +24,12 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
       variables: {
         id,
       },
+      // @ts-ignore
     }).subscribe({
       next: (data) => {
         setUpdatedBook(data.value.data.onUpdateBookId);
         toast.success('Your book has been updated');
       },
-      error: (error) => console.warn(error),
     });
   }
 
@@ -61,7 +61,7 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
   };
 
   return (
-    <div className="container mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+    <div className="container mx-auto mb-3 p-6 bg-white rounded-md shadow-md">
       <p className="text-3xl pb-2 font-black text-center">Edit this book</p>
       <Formik
         initialValues={{
@@ -103,13 +103,3 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
 };
 
 export default FormEditBook;
-
-{
-  /* <p
-className={`${getColorStatus(
-  book.status
-)} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}
->
-{book.status}
-</p> */
-}
