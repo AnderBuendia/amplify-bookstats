@@ -1,10 +1,15 @@
+import { useRouter } from 'next/router';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useState, useContext } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import AppContext from 'lib/context/app/appContext';
 import { readPagesAvgMins } from 'lib/utils/books.utils';
 import RatingStars from 'components/generic/RatingStars';
 import FormEditBook from 'components/book/FormEditBook';
+import DeleteModalBook from 'components/book/DeleteModalBook';
 
 const BookSection = ({ book }) => {
+  const router = useRouter();
   const [openEdit, setOpenEdit] = useState(false);
   const { updatedBook, setIsLoading, setUpdatedBook } = useContext(AppContext);
 
@@ -25,9 +30,19 @@ const BookSection = ({ book }) => {
   const createdDate = new Date(createdAt);
   const completedDate = new Date(updatedAt);
 
+  const submitDeleteBook = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteModalBook bookId={id} router={router} onClose={onClose} />
+        );
+      },
+    });
+  };
+
   return (
     <div className="flex flex-col w-11/12 justify-center items-center">
-      <div className="container mx-auto mt-4 p-5 bg-white rounded-md shadow-md">
+      <div className="container mx-auto my-4 p-5 bg-white rounded-md shadow-md">
         <div className="flex flex-row justify-between items-center">
           <h1 className="font-bold text-lg ">{name}</h1>
           <h3 className="font-light text-gray-500">{author}</h3>
@@ -69,21 +84,34 @@ const BookSection = ({ book }) => {
           </div>
         )}
       </div>
-      {openEdit ? (
-        <FormEditBook
-          book={dataBook}
-          setUpdatedBook={setUpdatedBook}
-          setIsLoading={setIsLoading}
-        />
-      ) : (
+      <div
+        className={`w-full flex flex-${
+          openEdit ? 'col justify-center items-center' : 'row'
+        }`}
+      >
+        {openEdit ? (
+          <FormEditBook
+            book={dataBook}
+            setUpdatedBook={setUpdatedBook}
+            setIsLoading={setIsLoading}
+          />
+        ) : (
+          <button
+            className="object-center w-6/12 p-2 mr-6 font-bold bg-green-500 text-white rounded-md hover:opacity-70 
+            transition-opacity duration-500 ease-out"
+            onClick={() => setOpenEdit((prev) => !prev)}
+          >
+            Edit Book
+          </button>
+        )}
         <button
-          className="object-center w-7/12 p-3 mt-5 font-bold bg-green-500 text-white rounded-md hover:opacity-70 
+          className="object-center w-6/12 p-2 font-bold bg-red-500 text-white rounded-md hover:opacity-70 
           transition-opacity duration-500 ease-out"
-          onClick={() => setOpenEdit(true)}
+          onClick={submitDeleteBook}
         >
-          Edit Book
+          Delete Book
         </button>
-      )}
+      </div>
     </div>
   );
 };
