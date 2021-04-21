@@ -10,6 +10,7 @@ import Card from 'components/generic/Card';
 import IconChevrons from 'components/icons/iconchevrons';
 import { MainPaths } from 'enums/paths/main-paths';
 import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
+import { BooksStatus } from 'enums/books/booksStatus';
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -69,10 +70,10 @@ const Books = () => {
               placeholder="Regular input"
             >
               <option value="">Filter by...</option>
-              <option value="To Read">To Read</option>
-              <option value="Ready To Start">Ready To Start</option>
-              <option value="Reading">Reading</option>
-              <option value="Completed">Completed</option>
+              <option value={BooksStatus.TO_READ}>To Read</option>
+              <option value={BooksStatus.READY_TO_START}>Ready To Start</option>
+              <option value={BooksStatus.READING}>Reading</option>
+              <option value={BooksStatus.COMPLETED}>Completed</option>
             </select>
             <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
               <IconChevrons className="h-5 w-5 text-gray-200" />

@@ -12,7 +12,6 @@ import toast from 'react-hot-toast';
 
 const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
   const { id, name, author, status, review, read_pages } = book;
-  let readPagesArray = null;
 
   useEffect(() => {
     updateDataBook();
@@ -28,12 +27,12 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
     }).subscribe({
       next: (data) => {
         setUpdatedBook(data.value.data.onUpdateBookId);
-        toast.success('Your book has been updated');
       },
     });
   }
 
   const handleSubmit = async (values) => {
+    let readPagesArray = null;
     if (read_pages && values.read_pages !== 0) {
       readPagesArray = [...read_pages, values.read_pages];
     } else if (!read_pages && values.read_pages !== 0) {
@@ -54,6 +53,7 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
         authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       });
       setIsLoading(false);
+      toast.success('Your book has been updated');
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -73,7 +73,7 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
         }}
         onSubmit={handleSubmit}
       >
-        {({ errors, values, touched, setFieldValue }) => (
+        {({ values, setFieldValue }) => (
           <Form>
             <FormikInput id="name" name="name" type="text" />
             <FormikInput id="author" name="author" type="text" />
@@ -92,6 +92,13 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
                 status={values.status}
               />
             </div>
+            <p className="mt-1">
+              Read Pages:
+              <span className="ml-2 text-gray-500 font-light">
+                {read_pages ? read_pages : '0'}
+              </span>
+            </p>
+
             <FormikInput id="review" name="review" as="textarea" />
 
             <FormButton labelName="Submit" />

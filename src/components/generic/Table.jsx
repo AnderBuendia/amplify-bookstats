@@ -48,7 +48,12 @@ const Table = ({ books, user }) => {
                   </td>
                   <td className="p-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {readPagesAvgMins(book.read_pages, book.pages)} mins
+                      {readPagesAvgMins(
+                        book.read_pages,
+                        book.pages,
+                        book.status
+                      )}
+                      mins
                     </div>
                   </td>
                 </tr>
