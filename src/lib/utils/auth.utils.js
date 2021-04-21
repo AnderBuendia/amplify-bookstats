@@ -68,7 +68,7 @@ export async function signIn(values, setUiState, setIsLoading, router) {
 
     setUiState('signedIn');
     setIsLoading(false);
-    await router.push(MainPaths.BOOKS);
+    router.push(MainPaths.BOOKS);
   } catch (err) {
     toast.error(err.message);
     setIsLoading(false);

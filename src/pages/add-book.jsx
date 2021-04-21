@@ -28,17 +28,19 @@ const AddBook = () => {
   });
 
   const handleSubmit = async (values) => {
-    setIsLoading(true);
-    await API.graphql({
-      query: createBook,
-      variables: {
-        input: values,
-      },
-      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-    });
+    try {
+      setIsLoading(true);
+      await API.graphql({
+        query: createBook,
+        variables: {
+          input: values,
+        },
+        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      });
 
-    router.push(MainPaths.BOOKS);
-    setIsLoading(false);
+      router.push(MainPaths.BOOKS);
+      setIsLoading(false);
+    } catch (error) {}
   };
 
   return (

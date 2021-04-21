@@ -1,6 +1,6 @@
 projects:
   BookStats:
-    schemaPath: graphql/schema.json
+    schemaPath: amplify/backend/api/BookStats/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:

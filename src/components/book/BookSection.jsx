@@ -7,6 +7,7 @@ import { readPagesAvgMins } from 'lib/utils/books.utils';
 import RatingStars from 'components/generic/RatingStars';
 import FormEditBook from 'components/book/FormEditBook';
 import DeleteModalBook from 'components/book/DeleteModalBook';
+import { BooksStatus } from 'enums/books/booksStatus';
 
 const BookSection = ({ book }) => {
   const router = useRouter();
@@ -57,19 +58,21 @@ const BookSection = ({ book }) => {
           <div className="w-1/3 flex flex-col">
             <p>Time left</p>
             <p className="text-gray-500 font-light">
-              {readPagesAvgMins(read_pages, pages)} mins
+              {readPagesAvgMins(read_pages, pages, status)} mins
             </p>
           </div>
           <div className="w-1/3 flex flex-col border-r border-l">
             <p>Start at</p>
             <p className="text-gray-500 font-light">
-              {status === 'Reading' ? createdDate.toDateString() : 'Not Yet'}
+              {status === BooksStatus.READING
+                ? createdDate.toDateString()
+                : 'Not Yet'}
             </p>
           </div>
           <div className="w-1/3 flex flex-col ">
             <p>Completed at</p>
-            <p className="text-gray-500 font-light">
-              {status === 'Completed'
+            <p id="completed-date" className="text-gray-500 font-light">
+              {status === BooksStatus.COMPLETED
                 ? completedDate.toDateString()
                 : 'Not Yet'}
             </p>
