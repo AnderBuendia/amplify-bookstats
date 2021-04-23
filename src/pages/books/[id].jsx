@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { API } from 'aws-amplify';
 import '../../../configureAmplify';
 import MainLayout from 'components/layouts/MainLayout';
@@ -6,6 +7,13 @@ import { MainPaths } from 'enums/paths/main-paths';
 import BookSection from 'components/BookSection';
 
 const Book = ({ bookData }) => {
+  const router = useRouter();
+  console.log(bookData);
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <MainLayout
       title={bookData.name}
