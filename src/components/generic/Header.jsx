@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import AuthContext from '../../lib/context/auth/authContext';
-import { signOut } from '../../lib/utils/auth.utils';
-import { MainPaths } from '../../enums/paths/main-paths';
-import IconBooks from '../icons/iconbooks';
+import AppContext from 'lib/context/app/appContext';
+import { signOut } from 'lib/utils/auth.utils';
+import { MainPaths } from 'enums/paths/main-paths';
+import IconBooks from 'components/icons/iconbooks';
 
 const Header = () => {
-  const { user, uiState, setUser, setUiState } = useContext(AuthContext);
+  const { user, setUser, setUiState } = useContext(AppContext);
   const router = useRouter();
 
   return (
@@ -19,7 +19,7 @@ const Header = () => {
       </Link>
       <h1 className="text-lg md:text-2xl font-bold">Bookstats</h1>
 
-      {uiState === 'signedIn' && user ? (
+      {user ? (
         <button
           className="p-2 rounded-lg bg-black text-white hover:opacity-70 
             transition-opacity duration-500 ease-out"

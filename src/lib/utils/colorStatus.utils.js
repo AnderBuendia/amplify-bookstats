@@ -1,4 +1,4 @@
-import { BooksStatus } from '../../enums/books/booksStatus';
+import { BooksStatus } from 'enums/books/booksStatus';
 
 export const getColorStatus = (status) => {
   if (status === BooksStatus.TO_READ) return 'bg-blue-100 text-blue-500';

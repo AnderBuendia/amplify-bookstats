@@ -1,23 +1,42 @@
-import AuthInput from '../generic/AuthInput';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import FormikInput from 'components/form/FormikInput';
+import ErrorForm from 'components/form/ErrorForm';
+import FormButton from 'components/form/FormButton';
 
-const ForgotPassword = ({ onChange, setUiState, forgotPassword }) => {
+const ForgotPassword = ({ setUiState, forgotPassword }) => {
+  const errorMessagesForm = Yup.object().shape({
+    email: Yup.string().email('Invalid Email.').required('Email is required'),
+  });
+
   return (
     <>
-      <p className="text-3xl font-black">Forgot Password</p>
-      <AuthInput onChange={onChange} name="email" />
+      <p className="text-3xl pb-2 font-black text-center">Forgot Password</p>
+      <Formik
+        initialValues={{
+          email: '',
+        }}
+        validationSchema={errorMessagesForm}
+        onSubmit={forgotPassword}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <FormikInput id="email" type="text" name="email" />
+            {touched.email && errors.email && (
+              <ErrorForm errors={errors.email} />
+            )}
 
-      <button
-        onClick={forgotPassword}
-        className="text-white w-full mt-6 bg-pink-600 p-3 rounded"
-      >
-        Reset Password
-      </button>
-      <button
-        onClick={() => setUiState(null)}
-        className="text-sm mt-6 text-pink-500"
-      >
-        Cancel
-      </button>
+            <FormButton labelName="Reset Password" />
+
+            <button
+              onClick={() => setUiState(null)}
+              className="text-sm mt-6 text-pink-500"
+            >
+              Cancel
+            </button>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 };

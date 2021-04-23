@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import Head from '../generic/Head';
-import Header from '../generic/Header';
-import { MainPaths } from '../../enums/paths/main-paths';
+import Head from 'components/generic/Head';
+import Header from 'components/generic/Header';
+import { MainPaths } from 'enums/paths/main-paths';
 
 const MainLayout = ({ title, description, url, children }) => {
   const router = useRouter();

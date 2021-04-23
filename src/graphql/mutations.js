@@ -17,8 +17,8 @@ export const createBook = /* GraphQL */ `
       image
       review
       username
-      createdAt
       updatedAt
+      createdAt
     }
   }
 `;
@@ -38,8 +38,8 @@ export const updateBook = /* GraphQL */ `
       image
       review
       username
-      createdAt
       updatedAt
+      createdAt
     }
   }
 `;
@@ -59,8 +59,8 @@ export const deleteBook = /* GraphQL */ `
       image
       review
       username
-      createdAt
       updatedAt
+      createdAt
     }
   }
 `;

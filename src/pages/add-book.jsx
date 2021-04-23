@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { API } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import MainLayout from '../components/layouts/MainLayout';
-import FormikInput from '../components/generic/FormikInput';
-import ErrorForm from '../components/generic/ErrorForm';
-import { getColorStatus } from '../lib/utils/colorStatus.utils';
-import { MainPaths } from '../enums/paths/main-paths';
-import { createBook } from '../../graphql/mutations';
-import Spinner from '../components/generic/Spinner';
+import MainLayout from 'components/layouts/MainLayout';
+import AppContext from 'lib/context/app/appContext';
+import FormikInput from 'components/form/FormikInput';
+import ErrorForm from 'components/form/ErrorForm';
+import FormButton from 'components/form/FormButton';
+import BookStatus from 'components/form/BookStatus';
+import { MainPaths } from 'enums/paths/main-paths';
+import { createBook } from 'graphql/mutations';
 
 const AddBook = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { setIsLoading } = useContext(AppContext);
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({
@@ -27,17 +28,19 @@ const AddBook = () => {
   });
 
   const handleSubmit = async (values) => {
-    setIsLoading(true);
-    await API.graphql({
-      query: createBook,
-      variables: {
-        input: values,
-      },
-      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-    });
+    try {
+      setIsLoading(true);
+      await API.graphql({
+        query: createBook,
+        variables: {
+          input: values,
+        },
+        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      });
 
-    router.push(MainPaths.BOOKS);
-    setIsLoading(false);
+      router.push(MainPaths.BOOKS);
+      setIsLoading(false);
+    } catch (error) {}
   };
 
   return (
@@ -75,32 +78,13 @@ const AddBook = () => {
                   <ErrorForm errors={errors.pages} />
                 )}
 
-                <Field
-                  as="select"
-                  name="status"
-                  value={values.status}
-                  onChange={(e) => {
-                    setFieldValue('status', e.target.value);
-                  }}
-                  className={`${getColorStatus(
-                    values.status
-                  )} mt-10 px-4 py-2 w-5/12 rounded-full font-bold cursor-pointer 
-                shadow-md text-center appearance-none relative hover:opacity-70`}
-                >
-                  <option value="To Read">To Read</option>
-                  <option value="Ready To Start">Ready To Start</option>
-                  <option value="Reading">Reading</option>
-                  <option value="Completed">Completed</option>
-                </Field>
+                <BookStatus
+                  setFieldValue={setFieldValue}
+                  status={values.status}
+                />
               </div>
 
-              <button
-                className="flex flex-row items-center justify-center text-white w-full 
-                  mt-6 bg-pink-600 hover:bg-pink-800 p-2 rounded"
-                type="submit"
-              >
-                {isLoading && <Spinner />} Submit
-              </button>
+              <FormButton labelName="Submit" />
             </Form>
           )}
         </Formik>

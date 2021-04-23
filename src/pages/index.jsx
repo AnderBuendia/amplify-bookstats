@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import useResolution from '../hooks/useResolution';
-import MainLayout from '../components/layouts/MainLayout';
-import Table from '../components/generic/Table';
-import Card from '../components/generic/Card';
-import { MainPaths } from '../enums/paths/main-paths';
-import { ResolutionBreakPoints } from '../enums/config/resolution-breakpoints';
-import { Books } from '../lib/booksForIndex';
+import useResolution from 'hooks/useResolution';
+import MainLayout from 'components/layouts/MainLayout';
+import Table from 'components/generic/Table';
+import Card from 'components/generic/Card';
+import { MainPaths } from 'enums/paths/main-paths';
+import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
+import { Books } from 'lib/booksForIndex';
 
 export default function Home() {
   const width = useResolution();
@@ -16,7 +16,7 @@ export default function Home() {
       description="List your books"
       url={MainPaths.INDEX}
     >
-      <div className="w-11/12 flex-col mt-28 text-center">
+      <div className="w-11/12  flex-col mt-28 text-center">
         <div className="overlay"></div>
 
         <h1 className="index-title">Bookstats</h1>
@@ -40,9 +40,9 @@ export default function Home() {
           </div>
           <div className="bg-white p-6 px-4">
             {width > ResolutionBreakPoints.SM ? (
-              <Table books={Books} />
+              <Table books={Books} user={null} />
             ) : (
-              <Card books={Books} />
+              <Card books={Books} user={null} />
             )}
           </div>
         </div>

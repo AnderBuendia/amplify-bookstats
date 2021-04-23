@@ -1,10 +1,10 @@
 import { Toaster } from 'react-hot-toast';
-import { AuthState } from '../lib/context/auth/authContext';
-import '../styles/globals.css';
+import { AppState } from 'lib/context/app/appContext';
+import 'styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthState>
+    <AppState>
       <Component {...pageProps} />
       <Toaster
         position="top-center"
@@ -15,10 +15,10 @@ function MyApp({ Component, pageProps }) {
             color: '#fff',
             zIndex: 1,
           },
-          duration: 4000,
+          duration: 3000,
         }}
       />
-    </AuthState>
+    </AppState>
   );
 }
 

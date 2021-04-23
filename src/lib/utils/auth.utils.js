@@ -1,19 +1,10 @@
-import Auth from '@aws-amplify/auth';
+// @ts-nocheck
+import { Auth } from 'aws-amplify';
 import '../../../configureAmplify';
-import { MainPaths } from '../../enums/paths/main-paths';
+import { MainPaths } from 'enums/paths/main-paths';
 import toast from 'react-hot-toast';
-/* Check user */
-export async function checkUser(setUser, setUiState) {
-  try {
-    const user = await Auth.currentAuthenticatedUser();
-    setUser(user);
-    setUiState('signedIn');
-  } catch (err) {
-    setUser(null);
-    setUiState('signIn');
-  }
-}
 
+/* Check user */
 export async function checkAuthUser(setUser, router) {
   try {
     const user = await Auth.currentAuthenticatedUser();
@@ -25,8 +16,10 @@ export async function checkAuthUser(setUser, router) {
 }
 
 /* Sign Up */
-export async function signUp(email, password, setUiState) {
+export async function signUp(values, setIsLoading, setUiState, setUser) {
+  const { email, password } = values;
   try {
+    setIsLoading(true);
     await Auth.signUp({
       username: email,
       password,
@@ -34,73 +27,75 @@ export async function signUp(email, password, setUiState) {
     });
 
     setUiState('confirmSignUp');
+    setUser(email);
+    setIsLoading(false);
   } catch (err) {
-    console.log(err);
+    toast.error(err.message);
+    setIsLoading(false);
   }
 }
 
 /* Confirm Sign Up */
-export async function confirmSignUp(
-  email,
-  password,
-  authCode,
-  setUiState,
-  router
-) {
+export async function confirmSignUp(values, user, setUiState, setIsLoading) {
   try {
-    await Auth.confirmSignUp(email, authCode);
-    await Auth.signIn(email, password);
-    setUiState('signedIn');
-    await router.push(MainPaths.INDEX);
+    setIsLoading(true);
+    await Auth.confirmSignUp(user, values.authCode);
+    setUiState(null);
+    setIsLoading(false);
   } catch (err) {
-    console.log(err);
+    toast.error(err.message);
+    setIsLoading(false);
   }
 }
 
 /* Sign In */
-export async function signIn(email, password, setUiState, router) {
+export async function signIn(values, setUiState, setIsLoading, router) {
+  const { email, password } = values;
   try {
+    setIsLoading(true);
     await Auth.signIn(email, password);
+
     setUiState('signedIn');
-    await router.push(MainPaths.BOOKS);
+    setIsLoading(false);
+    router.push(MainPaths.BOOKS);
   } catch (err) {
-    console.log(err.message);
     toast.error(err.message);
+    setIsLoading(false);
   }
 }
 
 /* Sign Out */
 export async function signOut(setUiState, setUser, router) {
-  await Auth.signOut();
-  setUiState(null);
-  setUser(null);
-  await router.push(MainPaths.INDEX);
+  try {
+    await Auth.signOut();
+    setUiState(null);
+    setUser(null);
+    await router.push(MainPaths.INDEX);
+    toast.success('You have been disconnected');
+  } catch (error) {
+    toast.error(error.message);
+  }
 }
 
 /* Forgot Password */
-export async function forgotPassword(email, setUiState) {
+export async function forgotPassword(values, setUiState, setUser) {
   try {
-    await Auth.forgotPassword(email);
+    await Auth.forgotPassword(values.email);
     setUiState('forgotPasswordSubmit');
+    setUser(values.email);
   } catch (err) {
-    console.log(err);
+    toast.error(err.message);
   }
 }
 
 /* Forgot Password Submit */
-export async function forgotPasswordSubmit(
-  email,
-  authCode,
-  password,
-  setUiState,
-  router
-) {
-  console.log('pass', password);
+export async function forgotPasswordSubmit(values, setUiState, user, setUser) {
+  const { password, authCode } = values;
   try {
-    await Auth.forgotPasswordSubmit(email, authCode, password);
+    await Auth.forgotPasswordSubmit(user, authCode, password);
     setUiState(null);
-    await router.push(MainPaths.INDEX);
+    setUser(null);
   } catch (err) {
-    console.log(err);
+    toast.error(err.message);
   }
 }

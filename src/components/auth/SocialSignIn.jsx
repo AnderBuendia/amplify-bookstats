@@ -1,5 +1,5 @@
 import Auth, { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
-import IconGoogle from '../icons/icongoogle';
+import IconGoogle from 'components/icons/icongoogle';
 
 const SocialSignIn = () => (
   <div className="flex flex-col">

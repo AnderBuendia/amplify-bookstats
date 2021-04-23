@@ -2,7 +2,7 @@ type Book
   @model
   @key(
     name: "booksByUsername"
-    fields: ["username"]
+    fields: ["username", "updatedAt"]
     queryField: "booksByUsername"
   )
   @auth(
@@ -21,4 +21,9 @@ type Book
   image: String
   review: String
   username: String
+  updatedAt: AWSDateTime
+}
+
+type Subscription {
+  onUpdateBookId(id: ID): Book @aws_subscribe(mutations: ["updateBook"])
 }

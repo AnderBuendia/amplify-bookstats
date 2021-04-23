@@ -1,8 +1,11 @@
+import Link from 'next/link';
+import '../../../configureAmplify';
 import { getColorStatus } from '../../lib/utils/colorStatus.utils';
-import ReactStars from 'react-rating-stars-component';
-import IconStar from '../icons/iconstar';
+import { readPagesAvgMins } from 'lib/utils/books.utils';
+import RatingStars from 'components/generic/RatingStars';
+import { MainPaths } from 'enums/paths/main-paths';
 
-const Table = ({ books }) => {
+const Table = ({ books, user }) => {
   return (
     <div className="w-full shadow overflow-x-auto border-b border-gray-200 rounded-lg">
       <table className="w-full divide-y divide-gray-200">
@@ -12,50 +15,49 @@ const Table = ({ books }) => {
             <th>Author</th>
             <th>Status</th>
             <th>Rating</th>
-            <th className="relative  py-3">
-              <span className="sr-only">Edit</span>
-            </th>
+            <th>Time Left</th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {books &&
             books.map((book) => (
-              <tr key={book.name} className="bg-gray-50">
-                <td className="p-4 whitespace-nowrap">
-                  <div className="flex items-center">
+              <Link
+                key={book.id}
+                href={user ? `${MainPaths.BOOKS}/${book.id}` : ''}
+              >
+                <tr className="bg-gray-50 text-center cursor-pointer transition duration-500 ease-in transform hover:scale-95 hover:bg-gray-50">
+                  <td className="p-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
                       {book.name}
                     </div>
-                  </div>
-                </td>
-                <td className="p-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{book.author}</div>
-                </td>
-                <td className="p-4 whitespace-nowrap">
-                  <span
-                    className={`${getColorStatus(
-                      book.status
-                    )} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}
-                  >
-                    {book.status}
-                  </span>
-                </td>
-                <td className="text-gray-500 whitespace-nowrap">
-                  <ReactStars
-                    classNames="focus:outline-none"
-                    count={5}
-                    value={book.rating}
-                    activeColor="yellow"
-                    emptyIcon={<IconStar className="w-5 h-5" />}
-                    filledIcon={
-                      <IconStar className="w-5 h-5 text-yellow-400" />
-                    }
-                  />
-                </td>
-                <td className="p-4 whitespace-nowrap text-right text-sm font-bold">
-                  <span className="text-blue-500">Edit</span>
-                </td>
-              </tr>
+                  </td>
+                  <td className="p-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{book.author}</div>
+                  </td>
+                  <td className="p-4 whitespace-nowrap">
+                    <span
+                      className={`${getColorStatus(
+                        book.status
+                      )} px-2 inline-flex text-xs leading-5 font-semibold rounded-full`}
+                    >
+                      {book.status}
+                    </span>
+                  </td>
+                  <td className="text-gray-500 whitespace-nowrap">
+                    <RatingStars bookId={book.id} bookRating={book.rating} />
+                  </td>
+                  <td className="p-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">
+                      {readPagesAvgMins(
+                        book.read_pages,
+                        book.pages,
+                        book.status
+                      )}
+                      mins
+                    </div>
+                  </td>
+                </tr>
+              </Link>
             ))}
         </tbody>
       </table>

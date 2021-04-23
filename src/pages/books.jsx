@@ -1,30 +1,28 @@
 import { useContext, useState, useEffect } from 'react';
-import { Auth } from 'aws-amplify';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
-import { checkAuthUser } from '../lib/utils/auth.utils';
-import AuthContext from '../lib/context/auth/authContext';
-import useResolution from '../hooks/useResolution';
-import MainLayout from '../components/layouts/MainLayout';
-import Table from '../components/generic/Table';
-import Card from '../components/generic/Card';
-import { MainPaths } from '../enums/paths/main-paths';
-import { ResolutionBreakPoints } from '../enums/config/resolution-breakpoints';
-import { fetchBooks } from '../lib/utils/books.utils';
+import { checkAuthUser } from 'lib/utils/auth.utils';
+import { fetchBooks } from 'lib/utils/books.utils';
+import AppContext from 'lib/context/app/appContext';
+import MainLayout from 'components/layouts/MainLayout';
+import Books from 'components/Books/';
+import { MainPaths } from 'enums/paths/main-paths';
 
-const Books = () => {
+const BooksPage = () => {
   const [books, setBooks] = useState([]);
-  const { user, setUser } = useContext(AuthContext);
+  const [tokenId, setTokenId] = useState([]);
+  const { user, setUser } = useContext(AppContext);
   const router = useRouter();
-  const width = useResolution();
 
   useEffect(() => {
     checkAuthUser(setUser, router);
 
-    fetchBooks(setBooks);
+    fetchBooks(setBooks, setTokenId);
   }, []);
 
   if (!user) return null;
+
+  console.log('Books', books);
 
   return (
     <MainLayout
@@ -32,22 +30,15 @@ const Books = () => {
       description="Create a list of your favorite books"
       url={MainPaths.BOOKS}
     >
-      <div className="w-11/12 lg:w-9/12 flex flex-col items-center mt-6">
-        <button
-          className="w-7/12 p-3 mb-5 font-bold bg-green-500 text-white rounded-md hover:opacity-70 
-            transition-opacity duration-500 ease-out"
-          onClick={() => router.push(MainPaths.ADD_BOOK)}
-        >
-          Add New Book
-        </button>
-        {width > ResolutionBreakPoints.SM ? (
-          <Table books={books} />
-        ) : (
-          <Card books={books} />
-        )}
-      </div>
+      <Books
+        user={user}
+        books={books}
+        tokenId={tokenId}
+        setBooks={setBooks}
+        setTokenId={setTokenId}
+      />
     </MainLayout>
   );
 };
 
-export default Books;
+export default BooksPage;

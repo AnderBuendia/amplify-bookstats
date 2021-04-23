@@ -14,8 +14,8 @@ export const getBook = /* GraphQL */ `
       image
       review
       username
-      createdAt
       updatedAt
+      createdAt
     }
   }
 `;
@@ -37,8 +37,8 @@ export const listBooks = /* GraphQL */ `
         image
         review
         username
-        createdAt
         updatedAt
+        createdAt
       }
       nextToken
     }
@@ -47,6 +47,7 @@ export const listBooks = /* GraphQL */ `
 export const booksByUsername = /* GraphQL */ `
   query BooksByUsername(
     $username: String
+    $updatedAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelBookFilterInput
     $limit: Int
@@ -54,6 +55,7 @@ export const booksByUsername = /* GraphQL */ `
   ) {
     booksByUsername(
       username: $username
+      updatedAt: $updatedAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -70,8 +72,8 @@ export const booksByUsername = /* GraphQL */ `
         image
         review
         username
-        createdAt
         updatedAt
+        createdAt
       }
       nextToken
     }
