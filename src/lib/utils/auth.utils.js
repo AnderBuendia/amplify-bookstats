@@ -1,25 +1,14 @@
 // @ts-nocheck
-import { API, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import '../../../configureAmplify';
 import { MainPaths } from 'enums/paths/main-paths';
 import toast from 'react-hot-toast';
-import { booksByUsername } from 'graphql/queries';
 
 /* Check user */
-export async function checkAuthUser(setUser, setBooks, router) {
+export async function checkAuthUser(setUser, router) {
   try {
     const user = await Auth.currentAuthenticatedUser();
     setUser(user);
-
-    const bookData = await API.graphql({
-      query: booksByUsername,
-      variables: {
-        username: user.username,
-        sortDirection: 'DESC',
-      },
-    });
-
-    setBooks(bookData.data.booksByUsername.items);
   } catch (error) {
     setUser(null);
     router.push(MainPaths.AUTH);

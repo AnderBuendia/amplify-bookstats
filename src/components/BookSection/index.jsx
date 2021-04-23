@@ -5,8 +5,8 @@ import { confirmAlert } from 'react-confirm-alert';
 import AppContext from 'lib/context/app/appContext';
 import { readPagesAvgMins } from 'lib/utils/books.utils';
 import RatingStars from 'components/generic/RatingStars';
-import FormEditBook from 'components/book/FormEditBook';
-import DeleteModalBook from 'components/book/DeleteModalBook';
+import FormEditBook from 'components/BookSection/FormEditBook';
+import DeleteModalBook from 'components/BookSection/DeleteModalBook';
 import { BooksStatus } from 'enums/books/booksStatus';
 
 const BookSection = ({ book }) => {
