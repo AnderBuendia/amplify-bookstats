@@ -3,7 +3,7 @@ import '../../../configureAmplify';
 import MainLayout from 'components/layouts/MainLayout';
 import { getBook, listBooks } from 'graphql/queries';
 import { MainPaths } from 'enums/paths/main-paths';
-import BookSection from 'components/book/BookSection';
+import BookSection from 'components/BookSection';
 
 const Book = ({ bookData }) => {
   return (
