@@ -8,7 +8,7 @@ describe('Login Failed', () => {
   it('Should login fails with wrong password', () => {
     cy.contains('Sign In for Bookstats').click();
 
-    cy.get('[name="email"]').type('ibysytho@protonmail.com');
+    cy.get('[name="email"]').type(Cypress.env('username'));
     cy.get('[name="password"]').type('Wrong_Password1');
     cy.contains('Sign In').click();
 
@@ -28,8 +28,11 @@ describe('Login Success', () => {
   });
 
   it('Should login in your account', () => {
-    cy.visit('/books');
-    cy.contains('Bookstats', { timeout: 6000 });
+    cy.get('[name="email"]').clear().type(Cypress.env('username'));
+    cy.get('[name="password"]').clear().type(Cypress.env('password'));
+    cy.contains('Sign In').click();
+
+    cy.contains('Bookstats', { timeout: 7000 });
   });
 
   describe('User books', () => {
