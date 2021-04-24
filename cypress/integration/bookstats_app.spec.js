@@ -49,6 +49,11 @@ describe('Login Success', () => {
       cy.contains('Edit Book', { timeout: 6000 }).click();
       cy.get('select').select('Completed');
       cy.contains('Submit').click();
+
+      cy.get('#icon-books', { timeout: 5000 }).click();
+
+      cy.contains('TestBook').click();
+
       cy.get('#completed-date', { timeout: 5000 }).should(
         'not.contain',
         'Not Yet'

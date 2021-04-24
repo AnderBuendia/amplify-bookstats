@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <nav className="flex flex-row justify-between items-center p-3 border-b border-gray-300 shadow-sm">
       <Link href={MainPaths.BOOKS}>
-        <a>
+        <a id="icon-books">
           <IconBooks className="w-12 h-12 hover:opacity-70 transition-opacity duration-500 ease-out" />
         </a>
       </Link>
