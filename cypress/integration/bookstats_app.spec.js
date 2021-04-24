@@ -52,12 +52,8 @@ describe('Login Success', () => {
 
       cy.get('#icon-books', { timeout: 5000 }).click();
 
+      cy.contains('Completed');
       cy.contains('TestBook').click();
-
-      cy.get('#completed-date', { timeout: 5000 }).should(
-        'not.contain',
-        'Not Yet'
-      );
     });
 
     it('Should delete that test book', () => {
