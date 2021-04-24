@@ -16,7 +16,6 @@ const Books = ({ user, books, tokenId, setBooks, setTokenId }) => {
   const width = useResolution();
 
   const searchBooks = (books) => {
-    console.log(books);
     const columns = ['name', 'author'];
 
     let filterbooks = books.filter((book) =>
