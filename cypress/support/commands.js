@@ -31,10 +31,6 @@ Cypress.Commands.add('signIn', () => {
   cy.saveLocalStorage();
 });
 
-Cypress.Commands.add('test', () => {
-  console.log('SESSION', Auth.currentAuthenticatedUser());
-});
-
 Cypress.Commands.add('createBook', async ({ name, author, pages, status }) => {
   return await API.graphql({
     query: createBook,

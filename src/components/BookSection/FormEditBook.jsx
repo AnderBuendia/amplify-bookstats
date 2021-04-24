@@ -55,7 +55,7 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
       setIsLoading(false);
       toast.success('Your book has been updated');
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
       setIsLoading(false);
     }
   };

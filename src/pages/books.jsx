@@ -22,8 +22,6 @@ const BooksPage = () => {
 
   if (!user) return null;
 
-  console.log('Books', books);
-
   return (
     <MainLayout
       title="My Books"

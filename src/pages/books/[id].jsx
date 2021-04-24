@@ -8,7 +8,6 @@ import BookSection from 'components/BookSection';
 
 const Book = ({ bookData }) => {
   const router = useRouter();
-  console.log(bookData);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -44,7 +43,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log(params);
   const { id } = params;
 
   const bookData = await API.graphql({
