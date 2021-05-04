@@ -20,7 +20,7 @@ export async function fetchBooks(setBooks, setTokenId, tokenId = null) {
   const res = bookData.data.booksByUsername;
 
   if (tokenId) {
-    setTokenId(res.nextToken);
+    setTokenId(res.nextoken);
     return res.items.map((book) => {
       setBooks((prevBooks) => [...prevBooks, book]);
     });

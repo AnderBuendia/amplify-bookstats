@@ -1,12 +1,11 @@
-import { useContext } from 'react';
 import { API } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { useActions } from 'hooks/useActions';
 import MainLayout from 'components/layouts/MainLayout';
-import AppContext from 'lib/context/app/appContext';
 import FormikInput from 'components/form/FormikInput';
 import ErrorForm from 'components/form/ErrorForm';
 import FormButton from 'components/form/FormButton';
@@ -15,7 +14,7 @@ import { MainPaths } from 'enums/paths/main-paths';
 import { createBook } from 'graphql/mutations';
 
 const AddBook = () => {
-  const { setIsLoading } = useContext(AppContext);
+  const { setIsLoading } = useActions();
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({

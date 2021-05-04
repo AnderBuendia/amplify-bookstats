@@ -1,13 +1,16 @@
-import { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import AppContext from 'lib/context/app/appContext';
+import { useSelector } from 'react-redux';
+import { useActions } from 'hooks/useActions';
 import { signOut } from 'lib/utils/auth.utils';
 import { MainPaths } from 'enums/paths/main-paths';
 import IconBooks from 'components/icons/iconbooks';
 
 const Header = () => {
-  const { user, setUser, setUiState } = useContext(AppContext);
+  // @ts-ignore
+  const { user } = useSelector((state) => state.app);
+  const { setUser, setUiState } = useActions();
+
   const router = useRouter();
 
   return (

@@ -1,8 +1,9 @@
-import { useRouter } from 'next/router';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { confirmAlert } from 'react-confirm-alert';
-import AppContext from 'lib/context/app/appContext';
+import { useSelector } from 'react-redux';
+import { useActions } from 'hooks/useActions';
 import { readPagesAvgMins } from 'lib/utils/books.utils';
 import RatingStars from 'components/generic/RatingStars';
 import FormEditBook from 'components/BookSection/FormEditBook';
@@ -12,7 +13,10 @@ import { BooksStatus } from 'enums/books/booksStatus';
 const BookSection = ({ book }) => {
   const router = useRouter();
   const [openEdit, setOpenEdit] = useState(false);
-  const { updatedBook, setIsLoading, setUpdatedBook } = useContext(AppContext);
+
+  const { setIsLoading, setUpdatedBook } = useActions();
+  // @ts-ignore
+  const { updatedBook } = useSelector((state) => state.app);
 
   const dataBook = updatedBook ? updatedBook : book;
 

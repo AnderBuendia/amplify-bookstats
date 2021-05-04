@@ -9,7 +9,7 @@ import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
 import { BooksStatus } from 'enums/books/booksStatus';
 import { MainPaths } from 'enums/paths/main-paths';
 
-const Books = ({ user, books, tokenId, setBooks, setTokenId }) => {
+const Books = ({ user, books }) => {
   const [q, setQ] = useState('');
   const [selectValue, setSelectValue] = useState('');
   const router = useRouter();
@@ -79,7 +79,7 @@ const Books = ({ user, books, tokenId, setBooks, setTokenId }) => {
         <Card books={filterBooks} user={user} />
       )}
 
-      {tokenId && (
+      {/* {tokenId && (
         <button
           className="w-4/12 p-1 mt-2 font-bold bg-indigo-300 shadow-md border border-indigo-500 text-indigo-800 
           rounded-sm hover:opacity-70 transition-opacity duration-500 ease-out"
@@ -87,7 +87,7 @@ const Books = ({ user, books, tokenId, setBooks, setTokenId }) => {
         >
           Load More Books
         </button>
-      )}
+      )} */}
     </div>
   );
 };

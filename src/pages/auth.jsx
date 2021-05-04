@@ -1,7 +1,7 @@
-import { useContext } from 'react';
 import '../../configureAmplify';
+import { useSelector } from 'react-redux';
+import { useActions } from 'hooks/useActions';
 import { useRouter } from 'next/router';
-import AppContext from 'lib/context/app/appContext';
 import AuthLayout from 'components/layouts/AuthLayout';
 import SignUp from 'components/auth/SignUp';
 import ConfirmSignUp from 'components/auth/ConfirmSignUp';
@@ -18,10 +18,12 @@ import {
 
 const Auth = () => {
   const router = useRouter();
-  const { user, setUser, uiState, setUiState, setIsLoading } = useContext(
-    AppContext
-  );
+  const { setUser, setUiState, setIsLoading } = useActions();
 
+  // @ts-ignore
+  const { user, uiState } = useSelector((state) => state.app);
+
+  console.log({ user, uiState });
   return (
     <AuthLayout>
       {!uiState && (
