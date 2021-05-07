@@ -54,7 +54,6 @@ export async function signIn(values, setUiState, setIsLoading, router) {
   try {
     setIsLoading(true);
     await Auth.signIn(email, password);
-
     setUiState('signedIn');
     setIsLoading(false);
     router.push(MainPaths.BOOKS);

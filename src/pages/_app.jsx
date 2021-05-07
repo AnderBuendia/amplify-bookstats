@@ -1,10 +1,11 @@
 import 'styles/globals.css';
 import { Provider } from 'react-redux';
-import { store } from '../state';
+import { useStore } from '../state';
 import { Toaster } from 'react-hot-toast';
-// import { AppState } from 'lib/context/app/appContext';
 
 function MyApp({ Component, pageProps }) {
+  const store = useStore(pageProps.initialReduxState);
+
   return (
     <Provider store={store}>
       <Component {...pageProps} />

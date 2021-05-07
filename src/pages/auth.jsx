@@ -23,7 +23,6 @@ const Auth = () => {
   // @ts-ignore
   const { user, uiState } = useSelector((state) => state.app);
 
-  console.log({ user, uiState });
   return (
     <AuthLayout>
       {!uiState && (

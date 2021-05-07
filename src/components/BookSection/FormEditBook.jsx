@@ -1,35 +1,24 @@
 import { useEffect } from 'react';
 import { API } from 'aws-amplify';
-import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import '../../../configureAmplify';
+import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import { Formik, Form } from 'formik';
+import { useActions } from 'hooks/useActions';
 import FormikInput from 'components/form/FormikInput';
 import BookStatus from 'components/form/BookStatus';
 import FormButton from 'components/form/FormButton';
 import { updateBook } from 'graphql/mutations';
-import { onUpdateBookId } from 'graphql/subscriptions';
 import toast from 'react-hot-toast';
 
-const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
+const FormEditBook = ({ book }) => {
   const { id, name, author, status, review, read_pages } = book;
+  const { setEditBook } = useActions();
 
   useEffect(() => {
     updateDataBook();
   }, []);
 
-  function updateDataBook() {
-    API.graphql({
-      query: onUpdateBookId,
-      variables: {
-        id,
-      },
-      // @ts-ignore
-    }).subscribe({
-      next: (data) => {
-        setUpdatedBook(data.value.data.onUpdateBookId);
-      },
-    });
-  }
+  const updateDataBook = () => setEditBook(id);
 
   const handleSubmit = async (values) => {
     let readPagesArray = null;
@@ -44,7 +33,6 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
     const newValues = { id, ...values, read_pages: readPagesArray };
 
     try {
-      setIsLoading(true);
       await API.graphql({
         query: updateBook,
         variables: {
@@ -52,11 +40,10 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
         },
         authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       });
-      setIsLoading(false);
+
       toast.success('Your book has been updated');
     } catch (error) {
       toast.error(error.message);
-      setIsLoading(false);
     }
   };
 
@@ -95,7 +82,7 @@ const FormEditBook = ({ book, setUpdatedBook, setIsLoading }) => {
             <p className="mt-1">
               Read Pages:
               <span className="ml-2 text-gray-500 font-light">
-                {read_pages ? read_pages : '0'}
+                {read_pages ? read_pages.join(', ') : 0}
               </span>
             </p>
 

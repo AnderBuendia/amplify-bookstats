@@ -1,5 +1,3 @@
-import { API } from 'aws-amplify';
-import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
 import { Formik, Form } from 'formik';
@@ -11,10 +9,9 @@ import ErrorForm from 'components/form/ErrorForm';
 import FormButton from 'components/form/FormButton';
 import BookStatus from 'components/form/BookStatus';
 import { MainPaths } from 'enums/paths/main-paths';
-import { createBook } from 'graphql/mutations';
 
 const AddBook = () => {
-  const { setIsLoading } = useActions();
+  const { setAddBook } = useActions();
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({
@@ -27,19 +24,8 @@ const AddBook = () => {
   });
 
   const handleSubmit = async (values) => {
-    try {
-      setIsLoading(true);
-      await API.graphql({
-        query: createBook,
-        variables: {
-          input: values,
-        },
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-      });
-
-      router.push(MainPaths.BOOKS);
-      setIsLoading(false);
-    } catch (error) {}
+    setAddBook(values);
+    router.push(MainPaths.BOOKS);
   };
 
   return (

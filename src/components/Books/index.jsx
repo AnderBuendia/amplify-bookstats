@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import useResolution from 'hooks/useResolution';
-import { fetchBooks } from 'lib/utils/books.utils';
 import Table from 'components/generic/Table';
 import Card from 'components/generic/Card';
 import IconChevrons from 'components/icons/iconchevrons';
@@ -9,7 +8,7 @@ import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
 import { BooksStatus } from 'enums/books/booksStatus';
 import { MainPaths } from 'enums/paths/main-paths';
 
-const Books = ({ user, books }) => {
+const Books = ({ user, books, isLoading, tokenId }) => {
   const [q, setQ] = useState('');
   const [selectValue, setSelectValue] = useState('');
   const router = useRouter();
@@ -72,6 +71,8 @@ const Books = ({ user, books }) => {
           onChange={(e) => setQ(e.target.value)}
         />
       </div>
+
+      {isLoading && <p className="text-xl">Loading...</p>}
 
       {width > ResolutionBreakPoints.SM ? (
         <Table books={filterBooks} user={user} />

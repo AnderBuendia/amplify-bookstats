@@ -2,8 +2,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { confirmAlert } from 'react-confirm-alert';
-import { useSelector } from 'react-redux';
-import { useActions } from 'hooks/useActions';
 import { readPagesAvgMins } from 'lib/utils/books.utils';
 import RatingStars from 'components/generic/RatingStars';
 import FormEditBook from 'components/BookSection/FormEditBook';
@@ -13,12 +11,6 @@ import { BooksStatus } from 'enums/books/booksStatus';
 const BookSection = ({ book }) => {
   const router = useRouter();
   const [openEdit, setOpenEdit] = useState(false);
-
-  const { setIsLoading, setUpdatedBook } = useActions();
-  // @ts-ignore
-  const { updatedBook } = useSelector((state) => state.app);
-
-  const dataBook = updatedBook ? updatedBook : book;
 
   const {
     id,
@@ -31,7 +23,7 @@ const BookSection = ({ book }) => {
     read_pages,
     createdAt,
     updatedAt,
-  } = dataBook;
+  } = book;
   const createdDate = new Date(createdAt);
   const completedDate = new Date(updatedAt);
 
@@ -97,11 +89,7 @@ const BookSection = ({ book }) => {
         }`}
       >
         {openEdit ? (
-          <FormEditBook
-            book={dataBook}
-            setUpdatedBook={setUpdatedBook}
-            setIsLoading={setIsLoading}
-          />
+          <FormEditBook book={book} />
         ) : (
           <button
             className="object-center w-6/12 p-2 mr-6 font-bold bg-green-500 text-white rounded-md hover:opacity-70 

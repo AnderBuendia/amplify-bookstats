@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useActions } from 'hooks/useActions';
 import { checkAuthUser } from 'lib/utils/auth.utils';
-// import { fetchBooks } from 'lib/utils/books.utils';
 import MainLayout from 'components/layouts/MainLayout';
 import Books from 'components/Books/';
 import { MainPaths } from 'enums/paths/main-paths';
@@ -18,15 +17,15 @@ const BooksPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!books.length) fetchBooks();
+    if (!booksList || !booksList.length) fetchBooks();
   }, []);
 
   // @ts-ignore
-  const { user, books, tokenId, isLoading } = useSelector((state) => state.app);
+  const { user, isLoading } = useSelector((state) => state.app);
+  // @ts-ignore
+  const { booksList, tokenId } = useSelector((state) => state.books);
 
   const fetchBooks = () => getBooks();
-
-  console.log(tokenId);
 
   if (!user) return null;
 
@@ -36,8 +35,12 @@ const BooksPage = () => {
       description="Create a list of your favorite books"
       url={MainPaths.BOOKS}
     >
-      {isLoading && <div>Loading...</div>}
-      <Books user={user} books={books} />
+      <Books
+        user={user}
+        books={booksList}
+        isLoading={isLoading}
+        tokenId={tokenId}
+      />
     </MainLayout>
   );
 };
