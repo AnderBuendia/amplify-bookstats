@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Auth, API } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import { ActionType } from '../action-types';
@@ -23,7 +24,31 @@ export const getBooks = () => {
 
       dispatch({
         type: ActionType.GET_BOOKS_SUCCESS,
-        // @ts-ignore
+        payload: res.data.booksByUsername,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getMoreBooks = (user, tokenId) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionType.BOOKS_IS_LOADING });
+
+    try {
+      const res = await API.graphql({
+        query: booksByUsername,
+        variables: {
+          username: user.username,
+          sortDirection: 'DESC',
+          limit: 2,
+          nextToken: tokenId,
+        },
+      });
+
+      dispatch({
+        type: ActionType.GET_MORE_BOOKS_SUCCESS,
         payload: res.data.booksByUsername,
       });
     } catch (error) {
@@ -47,7 +72,6 @@ export const setAddBook = (values) => {
 
       dispatch({
         type: ActionType.SET_ADD_BOOK_SUCCESS,
-        // @ts-ignore
         payload: res.data.createBook,
       });
     } catch (error) {
@@ -66,7 +90,6 @@ export const setEditBook = (id) => {
         variables: {
           id,
         },
-        // @ts-ignore
       }).subscribe({
         next: (data) => {
           dispatch({
