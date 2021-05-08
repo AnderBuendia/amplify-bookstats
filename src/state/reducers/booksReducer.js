@@ -7,9 +7,9 @@ const initialState = {
 };
 
 const ACTIONS_REDUCERS = {
-  [ActionType.GET_BOOKS]: (state, action) => ({
+  [ActionType.BOOKS_IS_LOADING]: (state, action) => ({
     ...state,
-    isLoading: action.payload,
+    isLoading: true,
   }),
   [ActionType.GET_BOOKS_SUCCESS]: (state, action) => ({
     ...state,
@@ -18,18 +18,10 @@ const ACTIONS_REDUCERS = {
     isLoading: false,
     book: null,
   }),
-  [ActionType.SET_ADD_BOOK]: (state, action) => ({
-    ...state,
-    isLoading: action.payload,
-  }),
   [ActionType.SET_ADD_BOOK_SUCCESS]: (state, action) => ({
     ...state,
     booksList: [action.payload, ...state.booksList],
     isLoading: false,
-  }),
-  [ActionType.SET_EDIT_BOOK]: (state, action) => ({
-    ...state,
-    isLoading: action.payload,
   }),
   [ActionType.SET_EDIT_BOOK_SUCCESS]: (state, action) => ({
     ...state,

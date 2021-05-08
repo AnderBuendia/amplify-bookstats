@@ -7,10 +7,7 @@ import { onUpdateBookId } from 'graphql/subscriptions';
 
 export const getBooks = () => {
   return async (dispatch) => {
-    dispatch({
-      type: ActionType.GET_BOOKS,
-      payload: true,
-    });
+    dispatch({ type: ActionType.BOOKS_IS_LOADING });
 
     try {
       const user = await Auth.currentAuthenticatedUser();
@@ -37,10 +34,7 @@ export const getBooks = () => {
 
 export const setAddBook = (values) => {
   return async (dispatch) => {
-    dispatch({
-      type: ActionType.SET_ADD_BOOK,
-      payload: true,
-    });
+    dispatch({ type: ActionType.BOOKS_IS_LOADING });
 
     try {
       const res = await API.graphql({
@@ -64,10 +58,7 @@ export const setAddBook = (values) => {
 
 export const setEditBook = (id) => {
   return async (dispatch) => {
-    dispatch({
-      type: ActionType.SET_EDIT_BOOK,
-      payload: true,
-    });
+    dispatch({ type: ActionType.BOOKS_IS_LOADING });
 
     try {
       API.graphql({
