@@ -14,7 +14,7 @@ const BookStatus = ({ setFieldValue, status }) => {
       className={`${getColorStatus(
         status
       )} relative text-center mt-10 px-4 py-2 rounded-full font-bold cursor-pointer 
-  shadow-md appearance-none hover:opacity-70`}
+  shadow-md appearance-none hover:opacity-70 focus:outline-none`}
     >
       <option value={BooksStatus.TO_READ}>To Read</option>
       <option value={BooksStatus.READY_TO_START}>Ready To Start</option>

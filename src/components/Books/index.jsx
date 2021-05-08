@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import useResolution from 'hooks/useResolution';
-import { fetchBooks } from 'lib/utils/books.utils';
 import Table from 'components/generic/Table';
 import Card from 'components/generic/Card';
 import IconChevrons from 'components/icons/iconchevrons';
@@ -9,7 +8,7 @@ import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
 import { BooksStatus } from 'enums/books/booksStatus';
 import { MainPaths } from 'enums/paths/main-paths';
 
-const Books = ({ user, books, tokenId, setBooks, setTokenId }) => {
+const Books = ({ user, books, isLoading, tokenId }) => {
   const [q, setQ] = useState('');
   const [selectValue, setSelectValue] = useState('');
   const router = useRouter();
@@ -73,13 +72,15 @@ const Books = ({ user, books, tokenId, setBooks, setTokenId }) => {
         />
       </div>
 
+      {isLoading && <p className="text-xl">Loading...</p>}
+
       {width > ResolutionBreakPoints.SM ? (
         <Table books={filterBooks} user={user} />
       ) : (
         <Card books={filterBooks} user={user} />
       )}
 
-      {tokenId && (
+      {/* {tokenId && (
         <button
           className="w-4/12 p-1 mt-2 font-bold bg-indigo-300 shadow-md border border-indigo-500 text-indigo-800 
           rounded-sm hover:opacity-70 transition-opacity duration-500 ease-out"
@@ -87,7 +88,7 @@ const Books = ({ user, books, tokenId, setBooks, setTokenId }) => {
         >
           Load More Books
         </button>
-      )}
+      )} */}
     </div>
   );
 };

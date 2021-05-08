@@ -1,25 +1,26 @@
 import { useRouter } from 'next/router';
 import { API } from 'aws-amplify';
 import '../../../configureAmplify';
+import { useSelector } from 'react-redux';
 import MainLayout from 'components/layouts/MainLayout';
+import BookSection from 'components/BookSection';
 import { getBook, listBooks } from 'graphql/queries';
 import { MainPaths } from 'enums/paths/main-paths';
-import BookSection from 'components/BookSection';
 
-const Book = ({ bookData }) => {
+const Book = () => {
   const router = useRouter();
+  if (router.isFallback) return <div>Loading...</div>;
 
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
+  // @ts-ignore
+  const { book } = useSelector((state) => state.books);
 
   return (
     <MainLayout
-      title={bookData.name}
+      title={book.name}
       description="See more data of your favorite books"
-      url={`${MainPaths.BOOKS}/${bookData.id}`}
+      url={`${MainPaths.BOOKS}/${book.id}`}
     >
-      <BookSection book={bookData} />
+      <BookSection book={book} />
     </MainLayout>
   );
 };
@@ -45,7 +46,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { id } = params;
 
-  const bookData = await API.graphql({
+  const res = await API.graphql({
     query: getBook,
     variables: {
       id,
@@ -54,10 +55,14 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      // @ts-ignore
-      bookData: bookData.data.getBook,
+      initialReduxState: {
+        books: {
+          booksList: [],
+          // @ts-ignore
+          book: res.data.getBook,
+        },
+      },
     },
-    revalidate: 60,
   };
 }
 

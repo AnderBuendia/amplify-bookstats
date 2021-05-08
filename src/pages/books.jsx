@@ -1,24 +1,29 @@
-import { useContext, useState, useEffect } from 'react';
+// @ts-nocheck
+import { useEffect } from 'react';
 import '../../configureAmplify';
 import { useRouter } from 'next/router';
-import { checkAuthUser } from 'lib/utils/auth.utils';
-import { fetchBooks } from 'lib/utils/books.utils';
-import AppContext from 'lib/context/app/appContext';
+import { useSelector } from 'react-redux';
+import { useActions } from 'hooks/useActions';
 import MainLayout from 'components/layouts/MainLayout';
 import Books from 'components/Books/';
 import { MainPaths } from 'enums/paths/main-paths';
 
 const BooksPage = () => {
-  const [books, setBooks] = useState([]);
-  const [tokenId, setTokenId] = useState([]);
-  const { user, setUser } = useContext(AppContext);
   const router = useRouter();
+  const { getBooks, checkAuthUser } = useActions();
 
   useEffect(() => {
-    checkAuthUser(setUser, router);
-
-    fetchBooks(setBooks, setTokenId);
+    checkAuthUser(router);
   }, []);
+
+  useEffect(() => {
+    if (!booksList || !booksList.length) fetchBooks();
+  }, []);
+
+  const { user, isLoading } = useSelector((state) => state.app);
+  const { booksList, tokenId } = useSelector((state) => state.books);
+
+  const fetchBooks = () => getBooks();
 
   if (!user) return null;
 
@@ -30,10 +35,9 @@ const BooksPage = () => {
     >
       <Books
         user={user}
-        books={books}
+        books={booksList}
+        isLoading={isLoading}
         tokenId={tokenId}
-        setBooks={setBooks}
-        setTokenId={setTokenId}
       />
     </MainLayout>
   );

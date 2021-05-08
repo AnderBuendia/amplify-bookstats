@@ -1,9 +1,10 @@
-import { useContext } from 'react';
-import AppContext from 'lib/context/app/appContext';
+import { useSelector } from 'react-redux';
 import Spinner from '../generic/Spinner';
 
 const FormButton = ({ labelName }) => {
-  const { isLoading } = useContext(AppContext);
+  // @ts-ignore
+  const { isLoading } = useSelector((state) => state.app);
+
   return (
     <button
       className="flex flex-row items-center justify-center text-white w-full 
