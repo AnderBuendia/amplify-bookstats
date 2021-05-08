@@ -10,7 +10,7 @@ import { MainPaths } from 'enums/paths/main-paths';
 
 const BooksPage = () => {
   const router = useRouter();
-  const { getBooks, checkAuthUser } = useActions();
+  const { getBooks, getMoreBooks, checkAuthUser } = useActions();
 
   useEffect(() => {
     checkAuthUser(router);
@@ -38,6 +38,7 @@ const BooksPage = () => {
         books={booksList}
         isLoading={isLoading}
         tokenId={tokenId}
+        getMoreBooks={getMoreBooks}
       />
     </MainLayout>
   );

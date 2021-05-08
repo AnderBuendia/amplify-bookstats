@@ -18,6 +18,12 @@ const ACTIONS_REDUCERS = {
     isLoading: false,
     book: null,
   }),
+  [ActionType.GET_MORE_BOOKS_SUCCESS]: (state, action) => ({
+    ...state,
+    booksList: [...state.booksList, ...action.payload.items],
+    tokenId: action.payload.nextToken,
+    isLoading: false,
+  }),
   [ActionType.SET_ADD_BOOK_SUCCESS]: (state, action) => ({
     ...state,
     booksList: [action.payload, ...state.booksList],
