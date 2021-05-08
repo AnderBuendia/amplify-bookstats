@@ -1,10 +1,13 @@
-import { Toaster } from 'react-hot-toast';
-import { AppState } from 'lib/context/app/appContext';
 import 'styles/globals.css';
+import { Provider } from 'react-redux';
+import { useStore } from '../state';
+import { Toaster } from 'react-hot-toast';
 
 function MyApp({ Component, pageProps }) {
+  const store = useStore(pageProps.initialReduxState);
+
   return (
-    <AppState>
+    <Provider store={store}>
       <Component {...pageProps} />
       <Toaster
         position="top-center"
@@ -18,7 +21,7 @@ function MyApp({ Component, pageProps }) {
           duration: 3000,
         }}
       />
-    </AppState>
+    </Provider>
   );
 }
 

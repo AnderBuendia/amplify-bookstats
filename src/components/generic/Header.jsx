@@ -1,13 +1,15 @@
-import { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import AppContext from 'lib/context/app/appContext';
-import { signOut } from 'lib/utils/auth.utils';
+import { useSelector } from 'react-redux';
+import { useActions } from 'hooks/useActions';
 import { MainPaths } from 'enums/paths/main-paths';
 import IconBooks from 'components/icons/iconbooks';
 
 const Header = () => {
-  const { user, setUser, setUiState } = useContext(AppContext);
+  // @ts-ignore
+  const { user } = useSelector((state) => state.app);
+  const { signOut } = useActions();
+
   const router = useRouter();
 
   return (
@@ -23,7 +25,7 @@ const Header = () => {
         <button
           className="p-2 rounded-lg bg-black text-white hover:opacity-70 
             transition-opacity duration-500 ease-out"
-          onClick={() => signOut(setUiState, setUser, router)}
+          onClick={() => signOut(router)}
         >
           Sign Out
         </button>

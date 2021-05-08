@@ -1,13 +1,3 @@
-.overlay {
-  @apply absolute;
-  @apply w-full;
-  @apply inset-0;
-  @apply opacity-0;
-  @apply bg-red-50;
-  transform: scale(0.5);
-  animation: 0.5s slideIn ease-in-out forwards, 1s skewBg ease-in-out;
-}
-
 .index-title {
   @apply z-10;
   @apply opacity-0;
@@ -16,12 +6,12 @@
   @apply font-bold;
   @apply text-black;
   transform: translateY(-600px);
-  animation: 1.4s slideIn ease-in-out forwards 0.5s;
+  animation: 0.9s slideIn ease-in-out forwards;
 }
 
 .index-button {
   transform: translateY(-600px);
-  animation: 1.9s slideIn ease-in-out forwards 0.5s;
+  animation: 1.3s slideIn ease-in-out forwards;
 }
 
 .index-table {
@@ -35,7 +25,7 @@
   @apply border-gray-200;
   @apply rounded-md;
   transform: translateX(-600px);
-  animation: 2.2s slideInX ease-in-out forwards 1s;
+  animation: 1.7s slideInX ease-in-out forwards;
 }
 
 th {
