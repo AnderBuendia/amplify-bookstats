@@ -1,6 +1,6 @@
 import { Field } from 'formik';
 import { getColorStatus } from 'lib/utils/colorStatus.utils';
-import { BooksStatus } from 'enums/books/booksStatus';
+import { BooksStatus } from 'enums/books/books-status';
 
 const BookStatus = ({ setFieldValue, status }) => {
   return (

@@ -1,4 +1,4 @@
-import { BooksStatus } from 'enums/books/booksStatus';
+import { BooksStatus } from 'enums/books/books-status';
 
 export function readPagesAvgMins(read_pages, pages, status) {
   if (status === BooksStatus.COMPLETED) {

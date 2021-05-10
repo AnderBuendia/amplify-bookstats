@@ -7,20 +7,16 @@ import { useActions } from 'hooks/useActions';
 import MainLayout from 'components/layouts/MainLayout';
 import Books from 'components/Books/';
 import { MainPaths } from 'enums/paths/main-paths';
+import useUser from 'hooks/useUser';
 
 const BooksPage = () => {
-  const router = useRouter();
-  const { getBooks, getMoreBooks, checkAuthUser } = useActions();
-
-  useEffect(() => {
-    checkAuthUser(router);
-  }, []);
+  const { getBooks, getMoreBooks } = useActions();
+  const { user, isLoading } = useUser();
 
   useEffect(() => {
     if (!booksList || !booksList.length) fetchBooks();
   }, []);
 
-  const { user, isLoading } = useSelector((state) => state.app);
   const { booksList, tokenId } = useSelector((state) => state.books);
 
   const fetchBooks = () => getBooks();

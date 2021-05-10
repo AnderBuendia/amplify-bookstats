@@ -5,7 +5,7 @@ import Table from 'components/generic/Table';
 import Card from 'components/generic/Card';
 import IconChevrons from 'components/icons/iconchevrons';
 import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
-import { BooksStatus } from 'enums/books/booksStatus';
+import { BooksStatus } from 'enums/books/books-status';
 import { MainPaths } from 'enums/paths/main-paths';
 
 const Books = ({ user, books, isLoading, tokenId, getMoreBooks }) => {
