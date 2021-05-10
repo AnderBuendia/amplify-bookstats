@@ -4,6 +4,7 @@ import FormikInput from 'components/form/FormikInput';
 import ErrorForm from 'components/form/ErrorForm';
 import SocialSignIn from 'components/auth/SocialSignIn';
 import FormButton from 'components/form/FormButton';
+import { UiStateStatus } from 'enums/user/uistate-status';
 
 const SignIn = ({ setUiState, signIn }) => {
   const errorMessagesForm = Yup.object().shape({
@@ -43,7 +44,7 @@ const SignIn = ({ setUiState, signIn }) => {
 
             <div className="mt-2">
               <span
-                onClick={() => setUiState('forgotPassword')}
+                onClick={() => setUiState(UiStateStatus.FORGOT_PASSWORD)}
                 className="underline text-sm text-pink-600 hover:text-pink-800 cursor-pointer"
               >
                 Forgot your Password?
@@ -59,7 +60,7 @@ const SignIn = ({ setUiState, signIn }) => {
             <p className="mt-8 text-sm font-bold">
               Don't have an account?
               <span
-                onClick={() => setUiState('signUp')}
+                onClick={() => setUiState(UiStateStatus.SIGN_UP)}
                 role="button"
                 className="ml-2 cursor-pointer text-pink-600 hover:text-pink-800"
               >

@@ -1,4 +1,4 @@
-import { BooksStatus } from 'enums/books/booksStatus';
+import { BooksStatus } from 'enums/books/books-status';
 
 const ACTIONS_COLOR_STATUS = {
   [BooksStatus.TO_READ]: () => 'bg-blue-100 text-blue-500',
