@@ -1,4 +1,4 @@
-import 'styles/globals.css';
+import '../styles/globals.css';
 import { Provider } from 'react-redux';
 import { useStore } from '../state';
 import { Toaster } from 'react-hot-toast';
