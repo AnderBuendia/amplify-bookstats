@@ -1,16 +1,10 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { useActions } from 'hooks/useActions';
+import useUser from 'hooks/useUser';
 import { MainPaths } from 'enums/paths/main-paths';
 import IconBooks from 'components/icons/iconbooks';
 
 const Header = () => {
-  // @ts-ignore
-  const { user } = useSelector((state) => state.app);
-  const { signOut } = useActions();
-
-  const router = useRouter();
+  const { signOut, user } = useUser();
 
   return (
     <nav className="flex flex-row justify-between items-center p-3 border-b border-gray-300 shadow-sm">
@@ -25,7 +19,7 @@ const Header = () => {
         <button
           className="p-2 rounded-lg bg-black text-white hover:opacity-70 
             transition-opacity duration-500 ease-out"
-          onClick={() => signOut(router)}
+          onClick={() => signOut()}
         >
           Sign Out
         </button>

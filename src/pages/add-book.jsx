@@ -2,7 +2,7 @@ import '../../configureAmplify';
 import { useRouter } from 'next/router';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { useActions } from 'hooks/useActions';
+import useBooks from 'hooks/useBooks';
 import MainLayout from 'components/layouts/MainLayout';
 import FormikInput from 'components/form/FormikInput';
 import ErrorForm from 'components/form/ErrorForm';
@@ -11,7 +11,7 @@ import BookStatus from 'components/form/BookStatus';
 import { MainPaths } from 'enums/paths/main-paths';
 
 const AddBook = () => {
-  const { setAddBook } = useActions();
+  const { setAddBook } = useBooks();
   const router = useRouter();
 
   const errorMessagesForm = Yup.object().shape({

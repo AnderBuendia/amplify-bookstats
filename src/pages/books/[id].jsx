@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRouter } from 'next/router';
 import { API } from 'aws-amplify';
 import '../../../configureAmplify';
@@ -11,7 +12,6 @@ const Book = () => {
   const router = useRouter();
   if (router.isFallback) return <div>Loading...</div>;
 
-  // @ts-ignore
   const { book } = useSelector((state) => state.books);
 
   return (
@@ -58,7 +58,6 @@ export async function getStaticProps({ params }) {
       initialReduxState: {
         books: {
           booksList: [],
-          // @ts-ignore
           book: res.data.getBook,
         },
       },

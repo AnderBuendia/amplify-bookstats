@@ -1,31 +1,18 @@
-// @ts-nocheck
-import { useEffect } from 'react';
 import '../../configureAmplify';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { useActions } from 'hooks/useActions';
+import useUserBooks from 'hooks/useUserBooks';
+import useUser from 'hooks/useUser';
 import MainLayout from 'components/layouts/MainLayout';
-import Books from 'components/Books/';
+import Books from 'components/Books';
 import { MainPaths } from 'enums/paths/main-paths';
 
 const BooksPage = () => {
-  const router = useRouter();
-  const { getBooks, getMoreBooks, checkAuthUser } = useActions();
-
-  useEffect(() => {
-    checkAuthUser(router);
-  }, []);
-
-  useEffect(() => {
-    if (!booksList || !booksList.length) fetchBooks();
-  }, []);
-
-  const { user, isLoading } = useSelector((state) => state.app);
-  const { booksList, tokenId } = useSelector((state) => state.books);
-
-  const fetchBooks = () => getBooks();
+  const { user, isLoading } = useUser();
 
   if (!user) return null;
+
+  const { booksList, getMoreBooks, tokenId } = useUserBooks({
+    user: user.username,
+  });
 
   return (
     <MainLayout

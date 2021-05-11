@@ -3,7 +3,7 @@ import { API } from 'aws-amplify';
 import '../../../configureAmplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import { Formik, Form } from 'formik';
-import { useActions } from 'hooks/useActions';
+import useBooks from 'hooks/useBooks';
 import FormikInput from 'components/form/FormikInput';
 import BookStatus from 'components/form/BookStatus';
 import FormButton from 'components/form/FormButton';
@@ -12,13 +12,13 @@ import toast from 'react-hot-toast';
 
 const FormEditBook = ({ book }) => {
   const { id, name, author, status, review, read_pages } = book;
-  const { setEditBook } = useActions();
+  const { setEditBook } = useBooks();
 
   useEffect(() => {
     updateDataBook();
   }, []);
 
-  const updateDataBook = () => setEditBook(id);
+  const updateDataBook = () => setEditBook({ id });
 
   const handleSubmit = async (values) => {
     let readPagesArray = null;

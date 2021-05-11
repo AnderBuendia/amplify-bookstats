@@ -12,18 +12,19 @@ const ACTIONS_REDUCERS = {
     ...state,
     uiState: action.payload,
   }),
-  [ActionType.CHECK_AUTH_USER]: (state, action) => ({
+  [ActionType.IS_LOADING]: (state, action) => ({
     ...state,
-    user: action.payload,
+    isLoading: true,
+  }),
+  [ActionType.AUTH_USER_SUCCESS]: (state, action) => ({
+    ...state,
+    user: action.payload.user,
+    uiState: action.payload.uiState,
+    isLoading: false,
   }),
   [ActionType.CHECK_AUTH_USER_ERROR]: (state, action) => ({
     ...state,
     user: null,
-  }),
-  [ActionType.SIGN_IN_SUCCESS]: (state, action) => ({
-    ...state,
-    uiState: action.payload,
-    isLoading: false,
   }),
   [ActionType.SIGN_UP_SUCCESS]: (state, action) => ({
     ...state,
@@ -35,10 +36,6 @@ const ACTIONS_REDUCERS = {
     ...state,
     user: { email: action.payload.email },
     uiState: action.payload.uiState,
-  }),
-  [ActionType.AUTH_IS_LOADING]: (state, action) => ({
-    ...state,
-    isLoading: true,
   }),
   [ActionType.AUTH_ERROR]: (state, action) => ({
     ...state,
