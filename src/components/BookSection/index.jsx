@@ -1,7 +1,7 @@
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import { confirmAlert } from 'react-confirm-alert';
+import useBooks from 'hooks/useBooks';
 import { readPagesAvgMins } from 'lib/utils/books.utils';
 import RatingStars from 'components/generic/RatingStars';
 import FormEditBook from 'components/BookSection/FormEditBook';
@@ -9,8 +9,8 @@ import DeleteModalBook from 'components/BookSection/DeleteModalBook';
 import { BooksStatus } from 'enums/books/books-status';
 
 const BookSection = ({ book }) => {
-  const router = useRouter();
   const [openEdit, setOpenEdit] = useState(false);
+  const { setDeleteBook } = useBooks();
 
   const {
     id,
@@ -31,7 +31,11 @@ const BookSection = ({ book }) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
-          <DeleteModalBook bookId={id} router={router} onClose={onClose} />
+          <DeleteModalBook
+            bookId={id}
+            onClose={onClose}
+            setDeleteBook={setDeleteBook}
+          />
         );
       },
     });

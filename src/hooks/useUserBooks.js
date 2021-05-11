@@ -20,7 +20,7 @@ export default function useUserBooks({ user = null }) {
         variables: {
           username: user,
           sortDirection: 'DESC',
-          limit: 2,
+          limit: 10,
         },
       });
 
@@ -38,7 +38,7 @@ export default function useUserBooks({ user = null }) {
           variables: {
             username: user.username,
             sortDirection: 'DESC',
-            limit: 2,
+            limit: 10,
             nextToken: tokenId,
           },
         });

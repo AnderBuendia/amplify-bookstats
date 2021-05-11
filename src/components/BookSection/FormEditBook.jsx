@@ -18,7 +18,7 @@ const FormEditBook = ({ book }) => {
     updateDataBook();
   }, []);
 
-  const updateDataBook = () => setEditBook(id);
+  const updateDataBook = () => setEditBook({ id });
 
   const handleSubmit = async (values) => {
     let readPagesArray = null;
