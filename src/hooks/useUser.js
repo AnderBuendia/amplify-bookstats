@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Auth } from 'aws-amplify';
-import { useActions } from 'hooks/useActions';
-import { MainPaths } from 'enums/paths/main-paths';
-import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
+import { useActions } from 'hooks/useActions';
 import { signOutAction } from 'state/action-creators';
+import { MainPaths } from 'enums/paths/main-paths';
 
 export default function useUser() {
   const router = useRouter();
@@ -26,7 +26,9 @@ export default function useUser() {
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
-      .then((user) => checkAuthUserAction(user))
+      .then((user) => {
+        checkAuthUserAction(user);
+      })
       .catch(() => {
         checkAuthUserErrorAction();
         router.push(MainPaths.AUTH);
@@ -42,8 +44,8 @@ export default function useUser() {
       isLoadingAction();
 
       Auth.signIn(email, password)
-        .then((data) => {
-          signInAction(data);
+        .then((user) => {
+          checkAuthUserAction(user);
           router.push(MainPaths.BOOKS);
         })
         .catch((error) => {
@@ -77,7 +79,6 @@ export default function useUser() {
 
   const confirmSignUp = useCallback(
     (authCode, user) => {
-      console.log({ authCode, user });
       isLoadingAction();
 
       Auth.confirmSignUp(user.email, authCode)
@@ -108,7 +109,6 @@ export default function useUser() {
 
   const forgotPasswordSubmit = useCallback(
     (authCode, password, user) => {
-      console.log({ authCode, password, user });
       Auth.forgotPasswordSubmit(user.email, authCode, password)
         .then(() => {
           defaultAppStateAction();

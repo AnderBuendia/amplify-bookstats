@@ -1,27 +1,18 @@
-// @ts-nocheck
-import { useEffect } from 'react';
 import '../../configureAmplify';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { useActions } from 'hooks/useActions';
-import MainLayout from 'components/layouts/MainLayout';
-import Books from 'components/Books/';
-import { MainPaths } from 'enums/paths/main-paths';
+import useUserBooks from 'hooks/useUserBooks';
 import useUser from 'hooks/useUser';
+import MainLayout from 'components/layouts/MainLayout';
+import Books from 'components/Books';
+import { MainPaths } from 'enums/paths/main-paths';
 
 const BooksPage = () => {
-  const { getBooks, getMoreBooks } = useActions();
   const { user, isLoading } = useUser();
 
-  useEffect(() => {
-    if (!booksList || !booksList.length) fetchBooks();
-  }, []);
-
-  const { booksList, tokenId } = useSelector((state) => state.books);
-
-  const fetchBooks = () => getBooks();
-
   if (!user) return null;
+
+  const { booksList, getMoreBooks, tokenId } = useUserBooks({
+    user: user.username,
+  });
 
   return (
     <MainLayout

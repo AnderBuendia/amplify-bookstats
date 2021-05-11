@@ -16,19 +16,15 @@ const ACTIONS_REDUCERS = {
     ...state,
     isLoading: true,
   }),
-  [ActionType.CHECK_AUTH_USER]: (state, action) => ({
-    ...state,
-    user: action.payload,
-  }),
-  [ActionType.CHECK_AUTH_USER_ERROR]: (state, action) => ({
-    ...state,
-    user: null,
-  }),
-  [ActionType.SIGN_IN_SUCCESS]: (state, action) => ({
+  [ActionType.AUTH_USER_SUCCESS]: (state, action) => ({
     ...state,
     user: action.payload.user,
     uiState: action.payload.uiState,
     isLoading: false,
+  }),
+  [ActionType.CHECK_AUTH_USER_ERROR]: (state, action) => ({
+    ...state,
+    user: null,
   }),
   [ActionType.SIGN_UP_SUCCESS]: (state, action) => ({
     ...state,

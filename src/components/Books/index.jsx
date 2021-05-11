@@ -84,7 +84,7 @@ const Books = ({ user, books, isLoading, tokenId, getMoreBooks }) => {
         <button
           className="w-4/12 p-1 mt-2 font-bold bg-indigo-300 shadow-md border border-indigo-500 text-indigo-800 
           rounded-sm hover:opacity-70 transition-opacity duration-500 ease-out"
-          onClick={() => getMoreBooks(user, tokenId)}
+          onClick={() => getMoreBooks({ user, tokenId })}
         >
           Load More Books
         </button>

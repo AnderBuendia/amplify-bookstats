@@ -1,6 +1,9 @@
 import { ActionType } from '../action-types';
 import { UiStateStatus } from 'enums/user/uistate-status';
 
+export const signOutAction = () => (dispatch) =>
+  dispatch({ type: ActionType.LOGOUT });
+
 export const setUiStateAction = (uiState) => (dispatch) =>
   dispatch({
     type: ActionType.SET_UI_STATE,
@@ -15,8 +18,11 @@ export const isLoadingAction = () => (dispatch) =>
 
 export const checkAuthUserAction = (user) => (dispatch) => {
   dispatch({
-    type: ActionType.CHECK_AUTH_USER,
-    payload: user,
+    type: ActionType.AUTH_USER_SUCCESS,
+    payload: {
+      user,
+      uiState: UiStateStatus.SIGNED_IN,
+    },
   });
 };
 
@@ -49,8 +55,6 @@ export const forgotPasswordAction = (email) => (dispatch) =>
       uiState: UiStateStatus.FORGOT_PASSWORD_SUBMIT,
     },
   });
-
-export const signOutAction = () => (dispatch) => dispatch({ type: 'LOGOUT' });
 
 export const authErrorAction = () => (dispatch) =>
   dispatch({ type: ActionType.AUTH_ERROR });

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import appReducer from './appReducer';
 import booksReducer from './booksReducer';
+import { ActionType } from '../action-types';
 
 const combinedReducers = combineReducers({
   app: appReducer,
@@ -8,7 +9,7 @@ const combinedReducers = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === 'LOGOUT') {
+  if (action.type === ActionType.LOGOUT) {
     state = undefined;
   }
 

@@ -1,105 +1,26 @@
 // @ts-nocheck
-import { Auth, API } from 'aws-amplify';
-import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import { ActionType } from '../action-types';
-import { booksByUsername } from 'graphql/queries';
-import { createBook } from 'graphql/mutations';
-import { onUpdateBookId } from 'graphql/subscriptions';
 
-export const getBooks = () => {
-  return async (dispatch) => {
-    dispatch({ type: ActionType.BOOKS_IS_LOADING });
+export const getBooksAction = (books) => (dispatch) =>
+  dispatch({
+    type: ActionType.GET_BOOKS_SUCCESS,
+    payload: books,
+  });
 
-    try {
-      const user = await Auth.currentAuthenticatedUser();
+export const getMoreBooksAction = (books) => (dispatch) =>
+  dispatch({
+    type: ActionType.GET_MORE_BOOKS_SUCCESS,
+    payload: books,
+  });
 
-      const res = await API.graphql({
-        query: booksByUsername,
-        variables: {
-          username: user.username,
-          sortDirection: 'DESC',
-          limit: 2,
-        },
-      });
+export const setAddBookAction = (newBook) => (dispatch) =>
+  dispatch({
+    type: ActionType.SET_ADD_BOOK_SUCCESS,
+    payload: newBook,
+  });
 
-      dispatch({
-        type: ActionType.GET_BOOKS_SUCCESS,
-        payload: res.data.booksByUsername,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const getMoreBooks = (user, tokenId) => {
-  return async (dispatch) => {
-    dispatch({ type: ActionType.BOOKS_IS_LOADING });
-
-    try {
-      const res = await API.graphql({
-        query: booksByUsername,
-        variables: {
-          username: user.username,
-          sortDirection: 'DESC',
-          limit: 2,
-          nextToken: tokenId,
-        },
-      });
-
-      dispatch({
-        type: ActionType.GET_MORE_BOOKS_SUCCESS,
-        payload: res.data.booksByUsername,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const setAddBook = (values) => {
-  return async (dispatch) => {
-    dispatch({ type: ActionType.BOOKS_IS_LOADING });
-
-    try {
-      const res = await API.graphql({
-        query: createBook,
-        variables: {
-          input: values,
-        },
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-      });
-
-      dispatch({
-        type: ActionType.SET_ADD_BOOK_SUCCESS,
-        payload: res.data.createBook,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const setEditBook = (id) => {
-  return async (dispatch) => {
-    dispatch({ type: ActionType.BOOKS_IS_LOADING });
-
-    try {
-      API.graphql({
-        query: onUpdateBookId,
-        variables: {
-          id,
-        },
-      }).subscribe({
-        next: (data) => {
-          dispatch({
-            type: ActionType.SET_EDIT_BOOK_SUCCESS,
-            payload: data.value.data.onUpdateBookId,
-          });
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
+export const setEditBookAction = (editedBook) => (dispatch) =>
+  dispatch({
+    type: ActionType.SET_EDIT_BOOK_SUCCESS,
+    payload: editedBook,
+  });
