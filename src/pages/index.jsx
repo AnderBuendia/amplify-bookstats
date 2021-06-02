@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import useUser from 'hooks/useUser';
 import useResolution from 'hooks/useResolution';
 import MainLayout from 'components/layouts/MainLayout';
 import Table from 'components/generic/Table';
@@ -6,8 +7,10 @@ import Card from 'components/generic/Card';
 import { MainPaths } from 'enums/paths/main-paths';
 import { ResolutionBreakPoints } from 'enums/config/resolution-breakpoints';
 import { Books } from 'lib/booksForIndex';
+import { UiStateStatus } from 'enums/user/uistate-status';
 
 export default function Home() {
+  const { uiState } = useUser();
   const width = useResolution();
 
   return (
@@ -22,12 +25,20 @@ export default function Home() {
         <h1 className="index-title">Bookstats</h1>
 
         <div className="index-button my-8">
-          <Link href={MainPaths.AUTH}>
+          <Link
+            href={
+              uiState === UiStateStatus.SIGNED_IN
+                ? MainPaths.BOOKS
+                : MainPaths.AUTH
+            }
+          >
             <a
               className="px-6 py-3 font-bold bg-black text-white rounded-xl hover:opacity-60 
               transition-opacity duration-500 ease-out"
             >
-              Sign In for Bookstats
+              {uiState === UiStateStatus.SIGNED_IN
+                ? 'Go to your books'
+                : 'Sign In for Bookstats'}
             </a>
           </Link>
         </div>

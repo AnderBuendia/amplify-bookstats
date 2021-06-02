@@ -37,6 +37,11 @@ yarn-error.log*
 # Other files
 Tasks.todo
 
+#serverless
+.serverless
+.serverless_nextjs
+.vscode
+
 #amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -51,12 +56,8 @@ node_modules/
 aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
+amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
-
-#serverless
-.serverless
-.serverless_nextjs
-.vscode

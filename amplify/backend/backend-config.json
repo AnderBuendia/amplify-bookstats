@@ -16,7 +16,7 @@
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authbookstats28d2ca84"
+                "userPoolId": "authbookstatsc86d85be"
               }
             }
           ]
@@ -25,7 +25,7 @@
     }
   },
   "auth": {
-    "bookstats28d2ca84": {
+    "bookstatsc86d85be": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

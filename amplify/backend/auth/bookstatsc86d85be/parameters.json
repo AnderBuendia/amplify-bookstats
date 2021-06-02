@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "bookstats28d2ca84_identitypool_28d2ca84",
+    "identityPoolName": "bookstatsc86d85be_identitypool_c86d85be",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "bookst28d2ca84",
-    "userPoolName": "bookstats28d2ca84_userpool_28d2ca84",
+    "resourceNameTruncated": "bookstc86d85be",
+    "userPoolName": "bookstatsc86d85be_userpool_c86d85be",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "bookst28d2ca84_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "bookstc86d85be_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "28d2ca84",
-    "resourceName": "bookstats28d2ca84",
+    "sharedId": "c86d85be",
+    "resourceName": "bookstatsc86d85be",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,14 +45,19 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "defaultSocial",
     "hostedUI": true,
     "usernameAttributes": [
         "email"
     ],
+    "hostedUIDomainName": "bookstatsc86d85be-c86d85be",
+    "authProvidersUserPool": [
+        "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": [],
-    "authProviders": []
+    "dependsOn": []
 }

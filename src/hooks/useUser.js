@@ -31,7 +31,6 @@ export default function useUser() {
       })
       .catch(() => {
         checkAuthUserErrorAction();
-        router.push(MainPaths.AUTH);
       });
   }, []);
 
