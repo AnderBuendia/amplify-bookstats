@@ -34,9 +34,12 @@ export default function useUser() {
       });
   }, []);
 
-  const setUiState = useCallback(() => {
-    setUiStateAction({ uiState });
-  }, [setUiStateAction]);
+  const setUiState = useCallback(
+    ({ uiState }) => {
+      setUiStateAction({ uiState });
+    },
+    [setUiStateAction]
+  );
 
   const signIn = useCallback(
     ({ email, password }) => {

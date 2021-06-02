@@ -50,7 +50,7 @@ const SignUp = ({ setUiState, signUp }) => {
             <p className="mt-8 text-sm font-bold">
               Have an account?
               <span
-                onClick={() => setUiState(null)}
+                onClick={() => setUiState({ uiState: null })}
                 role="button"
                 className="ml-2 cursor-pointer text-pink-600 hover:text-pink-800"
               >

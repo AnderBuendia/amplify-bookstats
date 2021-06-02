@@ -4,11 +4,15 @@ import { UiStateStatus } from 'enums/user/uistate-status';
 export const signOutAction = () => (dispatch) =>
   dispatch({ type: ActionType.LOGOUT });
 
-export const setUiStateAction = (uiState) => (dispatch) =>
-  dispatch({
-    type: ActionType.SET_UI_STATE,
-    payload: uiState,
-  });
+export const setUiStateAction =
+  ({ uiState }) =>
+  (dispatch) => {
+    console.log(uiState);
+    dispatch({
+      type: ActionType.SET_UI_STATE,
+      payload: uiState,
+    });
+  };
 
 export const defaultAppStateAction = () => (dispatch) =>
   dispatch({ type: ActionType.RESET_APP_STATE });

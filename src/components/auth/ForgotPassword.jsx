@@ -29,7 +29,8 @@ const ForgotPassword = ({ setUiState, forgotPassword }) => {
             <FormButton labelName="Reset Password" />
 
             <button
-              onClick={() => setUiState(null)}
+              type="button"
+              onClick={() => setUiState({ uiState: null })}
               className="text-sm mt-6 text-pink-500"
             >
               Cancel

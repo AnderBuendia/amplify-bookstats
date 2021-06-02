@@ -44,7 +44,9 @@ const SignIn = ({ setUiState, signIn }) => {
 
             <div className="mt-2">
               <span
-                onClick={() => setUiState(UiStateStatus.FORGOT_PASSWORD)}
+                onClick={() =>
+                  setUiState({ uiState: UiStateStatus.FORGOT_PASSWORD })
+                }
                 className="underline text-sm text-pink-600 hover:text-pink-800 cursor-pointer"
               >
                 Forgot your Password?
@@ -60,7 +62,9 @@ const SignIn = ({ setUiState, signIn }) => {
             <p className="mt-8 text-sm font-bold">
               Don't have an account?
               <span
-                onClick={() => setUiState(UiStateStatus.SIGN_UP)}
+                onClick={() => {
+                  setUiState({ uiState: UiStateStatus.SIGN_UP });
+                }}
                 role="button"
                 className="ml-2 cursor-pointer text-pink-600 hover:text-pink-800"
               >

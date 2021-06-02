@@ -36,7 +36,7 @@ const ConfirmSignUp = ({ setUiState, confirmSignUp }) => {
             <FormButton labelName="Confirm Sign Up" />
 
             <button
-              onClick={() => setUiState(null)}
+              onClick={() => setUiState({ uiState: null })}
               className="text-sm mt-6 text-pink-500"
             >
               Cancel
