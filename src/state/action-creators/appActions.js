@@ -7,7 +7,6 @@ export const signOutAction = () => (dispatch) =>
 export const setUiStateAction =
   ({ uiState }) =>
   (dispatch) => {
-    console.log(uiState);
     dispatch({
       type: ActionType.SET_UI_STATE,
       payload: uiState,
