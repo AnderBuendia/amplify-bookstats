@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "bookstatsc86d85be_identitypool_c86d85be",
+    "identityPoolName": "bookstatsfe014c7b_identitypool_fe014c7b",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "bookstc86d85be",
-    "userPoolName": "bookstatsc86d85be_userpool_c86d85be",
+    "resourceNameTruncated": "bookstfe014c7b",
+    "userPoolName": "bookstatsfe014c7b_userpool_fe014c7b",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "bookstc86d85be_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "bookstfe014c7b_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "c86d85be",
-    "resourceName": "bookstatsc86d85be",
+    "sharedId": "fe014c7b",
+    "resourceName": "bookstatsfe014c7b",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -50,12 +50,12 @@
     "usernameAttributes": [
         "email"
     ],
-    "hostedUIDomainName": "bookstatsc86d85be-c86d85be",
+    "hostedUIDomainName": "bookstatsfe014c7b-fe014c7b",
     "authProvidersUserPool": [
         "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://bookstats.anderb.me/\"],\"LogoutURLs\":[\"https://bookstats.anderb.me/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,

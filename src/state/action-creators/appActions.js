@@ -1,9 +1,6 @@
 import { ActionType } from '../action-types';
 import { UiStateStatus } from 'enums/user/uistate-status';
 
-export const signOutAction = () => (dispatch) =>
-  dispatch({ type: ActionType.LOGOUT });
-
 export const setUiStateAction =
   ({ uiState }) =>
   (dispatch) => {
@@ -61,3 +58,6 @@ export const forgotPasswordAction = (email) => (dispatch) =>
 
 export const authErrorAction = () => (dispatch) =>
   dispatch({ type: ActionType.AUTH_ERROR });
+
+export const signOutAction = () => (dispatch) =>
+  dispatch({ type: ActionType.LOGOUT });

@@ -7,12 +7,9 @@ import { MainPaths } from 'enums/paths/main-paths';
 
 const BooksPage = () => {
   const { user, isLoading } = useUser();
+  const { booksList, getMoreBooks, tokenId } = useUserBooks();
 
   if (!user) return null;
-
-  const { booksList, getMoreBooks, tokenId } = useUserBooks({
-    user: user.username,
-  });
 
   return (
     <MainLayout
