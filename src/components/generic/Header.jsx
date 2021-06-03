@@ -1,10 +1,28 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Auth } from 'aws-amplify';
+import toast from 'react-hot-toast';
 import useUser from 'hooks/useUser';
+import { useActions } from '../../hooks/useActions';
 import { MainPaths } from 'enums/paths/main-paths';
 import IconBooks from 'components/icons/iconbooks';
 
 const Header = () => {
-  const { signOut, user } = useUser();
+  const { user } = useUser();
+  const router = useRouter();
+  const { signOutAction } = useActions();
+
+  async function signOut() {
+    try {
+      await Auth.signOut();
+      signOutAction();
+
+      router.push(MainPaths.INDEX);
+      toast.success('You have been disconnected');
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
 
   return (
     <nav className="flex flex-row justify-between items-center p-3 border-b border-gray-300 shadow-sm">

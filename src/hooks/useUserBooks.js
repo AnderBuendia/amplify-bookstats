@@ -4,10 +4,12 @@ import { useSelector } from 'react-redux';
 import { API } from 'aws-amplify';
 import { useActions } from 'hooks/useActions';
 import { booksByUsername } from 'graphql/queries';
+import useUser from 'hooks/useUser';
 
-export default function useUserBooks({ user = null }) {
+export default function useUserBooks() {
   const { getBooksAction, getMoreBooksAction } = useActions();
   const { booksList, tokenId } = useSelector((state) => state.books);
+  const { user } = useUser();
 
   useEffect(() => {
     if (user) getBooks(user);
@@ -18,7 +20,7 @@ export default function useUserBooks({ user = null }) {
       const res = await API.graphql({
         query: booksByUsername,
         variables: {
-          username: user,
+          username: user.username,
           sortDirection: 'DESC',
           limit: 10,
         },

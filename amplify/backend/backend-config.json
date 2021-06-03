@@ -1,6 +1,6 @@
 {
   "api": {
-    "BookStats": {
+    "Bookstats": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -16,7 +16,7 @@
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authbookstatsc86d85be"
+                "userPoolId": "authbookstatsfe014c7b"
               }
             }
           ]
@@ -25,7 +25,7 @@
     }
   },
   "auth": {
-    "bookstatsc86d85be": {
+    "bookstatsfe014c7b": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

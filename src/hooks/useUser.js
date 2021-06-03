@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import { Auth } from 'aws-amplify';
 import toast from 'react-hot-toast';
 import { useActions } from 'hooks/useActions';
-import { signOutAction } from 'state/action-creators';
 import { MainPaths } from 'enums/paths/main-paths';
 
 export default function useUser() {
   const router = useRouter();
+
   const {
     setUiStateAction,
     isLoadingAction,
@@ -122,18 +122,6 @@ export default function useUser() {
     [defaultAppStateAction]
   );
 
-  const signOut = useCallback(() => {
-    Auth.signOut()
-      .then(() => {
-        signOutAction();
-        router.push(MainPaths.INDEX);
-        toast.success('You have been disconnected');
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  }, [signOutAction]);
-
   return {
     user,
     uiState,
@@ -144,6 +132,5 @@ export default function useUser() {
     confirmSignUp,
     forgotPassword,
     forgotPasswordSubmit,
-    signOut,
   };
 }
